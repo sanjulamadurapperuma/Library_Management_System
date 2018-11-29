@@ -1,3 +1,39 @@
-<p>
-  borrow-item works!
-</p>
+<div class="jumbotron">
+  <form method="GET" action="#" #frm="ngForm" (ngSubmit)="borrowItem(frm)"
+        ng-controller="validateCtrl" name="borrow-item-form" form.valid>
+    <!--Label for ISBN-->
+    <div>
+      <label for="ISBN">ISBN</label>
+      <input name="ISBN" class="form-control" placeholder="Enter ISBN" type="text"
+             id="ISBN" required ng-model="isbn" ngModel #isbnNumber="ngModel"
+             pattern="[0-9]*">
+    </div>
+
+    <!--Validation for ISBN-->
+    <div *ngIf="isbnNumber?.touched && isbnNumber?.errors?.required"
+         class="alert-incorrect-value">
+      <span ng-bind="ISBN"></span>
+      ISBN is required
+    </div>
+
+    <!--Label for Reader ID-->
+    <label for="ReaderId">Reader ID : </label>
+    <input type="text" class="form-control" placeholder="Enter Reader ID :"
+           id="ReaderId" name="ReaderId" required
+           ngModel #readerId="ngModel" pattern="^[a-zA-Z0-9_]*$">
+
+    <!--Validation for Reader ID-->
+    <div *ngIf="readerId?.touched && readerId?.errors?.required"
+         class="alert-incorrect-value">
+      <span ng-bind="ReaderId"></span>
+      Reader ID is required
+    </div>
+
+    <label for="FreeSpaces"><b>Free Spaces remaining : </b></label>
+    <label ng-model="FreeSpaces" id="FreeSpaces"></label><br>
+    <br>
+    <button type="reset" name="clear" class="btn btn-primary">Clear Form</button>
+    <button type="submit" name="submit" class="btn btn-primary" [disabled]="frm.invalid">Submit</button>
+
+  </form>
+</div>
