@@ -1,3 +1,22 @@
-<p>
-  delete-item works!
-</p>
+<form method="GET" action="#" #frm="ngForm" (ngSubmit)="deleteItem(frm)"
+      ng-controller="validateCtrl" name="delete-item-form" form.valid>
+  <!--Label-->
+  <label for="ISBN"><b>ISBN : </b></label>
+  <input type="number" placeholder="Enter ISBN" name="ISBN" id="ISBN" required
+         ngModel #isbnNumber="ngModel" pattern="[0-9]*">
+
+  <!--Validation-->
+  <div *ngIf="isbnNumber?.touched && isbnNumber?.errors.required"
+       class="alert-incorrect-value">
+    <span ng-bind="ISBN"></span>
+    ISBN is required
+  </div>
+
+
+  <label for="FreeSpaces"><b>Free Spaces remaining : </b></label>
+  <label ng-model="FreeSpaces" id="FreeSpaces"></label><br>
+  <br>
+  <button type="reset" name="clear">Clear</button>
+  <button type="submit" name="submit" [disabled]="frm.invalid">Submit</button>
+
+</form>

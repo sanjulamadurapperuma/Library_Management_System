@@ -1,3 +1,4 @@
+<div class="jumbotron">
 <form name="addItemForm" ng-submit="additem()" novalidate>
   <div>
     <label for="freespaces"><b>Number of free spaces remaining: </b></label>
@@ -9,15 +10,41 @@
     <input type="radio" name="add" value="DVD"> DVD<br>
   </div>
   <div>
-    <label for="email">Email</label>
-    <input name="email" class="form-control" type="email" id="email" placeholder="Email"
-           ng-model="email">
+    <label for="ISBN">ISBN</label>
+    <input name="ISBN" class="form-control" type="text" id="ISBN"
+           ng-model="isbn">
   </div>
   <div>
     <label for="password">Password</label>
     <input name="password" class="form-control" type="password" id="password"
            placeholder="Password" ng-model="password">
-
   </div>
-  <button type="submit" class="btn btn-primary">Sign up!</button>
+  <div>
+    <label for="isbn1">ISBN</label>
+    <input name="ISBN" class="form-control" type="text" id="isbn1"
+           ng-model="isbn">
+  </div>
+  <div>
+    <label for="isbn2">ISBN</label>
+    <input name="ISBN" class="form-control" type="text" id="isbn2"
+           ng-model="isbn">
+  </div>
+  <div>
+    <label for="isbn3">ISBN</label>
+    <input name="ISBN" class="form-control" type="text" id="isbn3"
+           ng-model="isbn">
+  </div>
+  <div>
+    <label for="isbn4">ISBN</label>
+    <input name="ISBN" class="form-control" type="text" id="isbn4"
+           ng-model="isbn">
+  </div>
+  <div>
+    <label for="isbn5">ISBN</label>
+    <input name="ISBN" class="form-control" type="text" id="isbn5"
+           ng-model="isbn">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="reset" class="btn btn-primary">Clear Form</button>
 </form>
+</div>

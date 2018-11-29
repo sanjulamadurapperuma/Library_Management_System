@@ -11,11 +11,13 @@ import { ReturnItemComponent } from './return-item/return-item.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import {RouterModule} from "@angular/router";
 import { HomeComponent } from './home/home.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   declarations: [LayoutComponent, HeaderComponent, FooterComponent,
     AddItemComponent, BorrowItemComponent, DeleteItemComponent,
