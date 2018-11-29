@@ -17,7 +17,10 @@ import { HomeComponent } from './home/home.component';
     CommonModule,
     RouterModule
   ],
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, AddItemComponent, BorrowItemComponent, DeleteItemComponent, DisplayItemComponent, ReturnItemComponent, GenerateReportComponent, HomeComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent,
+    AddItemComponent, BorrowItemComponent, DeleteItemComponent,
+    DisplayItemComponent, ReturnItemComponent,
+    GenerateReportComponent, HomeComponent],
   exports: [LayoutComponent]
 })
 export class UiModule { }

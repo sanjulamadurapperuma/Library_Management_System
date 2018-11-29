@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {Route, RouterModule, Routes} from '@angular/router';
 import {FormsModule} from "@angular/forms";
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
@@ -17,35 +17,37 @@ import {DeleteItemComponent} from "./ui/delete-item/delete-item.component";
 import {BorrowItemComponent} from "./ui/borrow-item/borrow-item.component";
 import {DisplayItemComponent} from "./ui/display-item/display-item.component";
 import {GenerateReportComponent} from "./ui/generate-report/generate-report.component";
+import {HomeComponent} from "./ui/home/home.component";
+import {ReturnItemComponent} from "./ui/return-item/return-item.component";
 
 const routes: Routes = [
   {
     path: 'home',
-    component: RouteExampleComponent,
+    component: HomeComponent,
   },
   {
     path: 'add-item',
-    component: RouteExampleComponent,
+    component: AddItemComponent,
   },
   {
     path: 'delete-item',
-    component: RouteExampleComponent,
+    component: DeleteItemComponent,
   },
   {
     path: 'display-item',
-    component: RouteExampleComponent,
+    component: DisplayItemComponent,
   },
   {
     path: 'borrow-item',
-    component: RouteExampleComponent,
+    component: BorrowItemComponent,
   },
   {
     path: 'return-item',
-    component: RouteExampleComponent,
+    component: ReturnItemComponent,
   },
   {
     path: 'generate-report',
-    component: RouteExampleComponent,
+    component: GenerateReportComponent,
   },
   {
     path: '**',
@@ -65,7 +67,9 @@ const routes: Routes = [
     DeleteItemComponent,
     BorrowItemComponent,
     DisplayItemComponent,
-    GenerateReportComponent
+    GenerateReportComponent,
+    HomeComponent,
+    ReturnItemComponent
   ],
   imports: [
     BrowserModule,
