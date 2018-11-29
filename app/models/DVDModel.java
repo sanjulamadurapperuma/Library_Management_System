@@ -3,11 +3,11 @@ package models;
 import io.ebean.Model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "author")
-public class AuthorModel extends Model {
+@Table(name = "dvds")
+public class DVDModel extends Model {
+
     @Id
     @Column(name = "id")
     private int id;
@@ -15,8 +15,9 @@ public class AuthorModel extends Model {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
-    private List<BookModel> books;
+    @ManyToOne
+    @JoinColumn(name = "reader", referencedColumnName = "id")
+    private ReaderModel reader;
 
     public int getId() {
         return id;
@@ -34,11 +35,11 @@ public class AuthorModel extends Model {
         this.name = name;
     }
 
-    public List<BookModel> getBooks() {
-        return books;
+    public ReaderModel getReader() {
+        return reader;
     }
 
-    public void setBooks(List<BookModel> books) {
-        this.books = books;
+    public void setReader(ReaderModel reader) {
+        this.reader = reader;
     }
 }
