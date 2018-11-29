@@ -1,0 +1,29 @@
+<nav class="navbar navbar-dark bg-dark mb-5">
+  <a class="navbar-brand" href="/">Westminster Library</a>
+  <div class="navbar-expand mr-auto">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#">Home</a>
+      <a class="nav-item nav-link" href="#">Add Item</a>
+      <a class="nav-item nav-link" href="#">Delete Item</a>
+      <a class="nav-item nav-link" href="#">Display Item</a>
+      <a class="nav-item nav-link" href="#">Borrow Item</a>
+      <a class="nav-item nav-link" href="#">Return Item</a>
+      <a class="nav-item nav-link" href="#">Generate Report</a>
+      <a *ngFor = 'let route of routes' [routerLink]="route.url">{{route.linkName}}</a>
+    </div>
+  </div>
+  <div class="navbar-expand ml-auto navbar-nav">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="https://github.com/sanjulamadurapperuma" target="_blank">
+        <i class="fa fa-github"></i>
+      </a>
+      <a class="nav-item nav-link" href="https://linkedin.com/in/sanjula-madurapperuma" target="_blank">
+        <i class="fa fa-linkedin"></i>
+      </a>
+      <a class="nav-item nav-link" href="https://medium.com/@sanjulamadurapperuma" target="_blank">
+        <i class="fa fa-medium"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>
