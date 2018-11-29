@@ -7,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  routes = [
+    {linkName: 'Home', url: 'home'},
+    { linkName: 'Add Item', url: 'add-item'},
+    { linkName: 'Delete Item', url: 'delete-item'},
+    { linkName: 'Display Item', url: 'display-item'},
+    { linkName: 'Borrow Item', url: 'borrow-item'},
+    { linkName: 'Return Item', url: 'return-item'},
+    { linkName: 'Generate Report', url: 'generate-report'}
+  ];
+
+  constructor() {}
 
   ngOnInit() {
   }

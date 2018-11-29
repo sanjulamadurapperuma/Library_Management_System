@@ -9,10 +9,12 @@ import { DeleteItemComponent } from './delete-item/delete-item.component';
 import { DisplayItemComponent } from './display-item/display-item.component';
 import { ReturnItemComponent } from './return-item/return-item.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, AddItemComponent, BorrowItemComponent, DeleteItemComponent, DisplayItemComponent, ReturnItemComponent, GenerateReportComponent],
   exports: [LayoutComponent]

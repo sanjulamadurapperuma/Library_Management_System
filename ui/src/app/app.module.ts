@@ -12,6 +12,11 @@ import { AppHttpInterceptorService } from './http-interceptor.service';
 import { LayoutComponent } from './ui/layout/layout.component';
 import { HeaderComponent } from './ui/header/header.component';
 import { FooterComponent } from './ui/footer/footer.component';
+import {AddItemComponent} from "./ui/add-item/add-item.component";
+import {DeleteItemComponent} from "./ui/delete-item/delete-item.component";
+import {BorrowItemComponent} from "./ui/borrow-item/borrow-item.component";
+import {DisplayItemComponent} from "./ui/display-item/display-item.component";
+import {GenerateReportComponent} from "./ui/generate-report/generate-report.component";
 
 const routes: Routes = [
   {
@@ -31,7 +36,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/play',
+    redirectTo: '/home',
     pathMatch: 'full'
   }
 ];
@@ -42,7 +47,12 @@ const routes: Routes = [
     RouteExampleComponent,
     LayoutComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AddItemComponent,
+    DeleteItemComponent,
+    BorrowItemComponent,
+    DisplayItemComponent,
+    GenerateReportComponent
   ],
   imports: [
     BrowserModule,
