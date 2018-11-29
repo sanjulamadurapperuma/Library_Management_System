@@ -10,13 +10,14 @@ import { DisplayItemComponent } from './display-item/display-item.component';
 import { ReturnItemComponent } from './return-item/return-item.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import {RouterModule} from "@angular/router";
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule
   ],
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, AddItemComponent, BorrowItemComponent, DeleteItemComponent, DisplayItemComponent, ReturnItemComponent, GenerateReportComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, AddItemComponent, BorrowItemComponent, DeleteItemComponent, DisplayItemComponent, ReturnItemComponent, GenerateReportComponent, HomeComponent],
   exports: [LayoutComponent]
 })
 export class UiModule { }

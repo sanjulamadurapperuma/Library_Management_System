@@ -20,19 +20,32 @@ import {GenerateReportComponent} from "./ui/generate-report/generate-report.comp
 
 const routes: Routes = [
   {
-    path: 'java',
+    path: 'home',
     component: RouteExampleComponent,
-    data: { technology: 'Java' }
   },
   {
-    path: 'play',
+    path: 'add-item',
     component: RouteExampleComponent,
-    data: { technology: 'Play' }
   },
   {
-    path: 'angular',
+    path: 'delete-item',
     component: RouteExampleComponent,
-    data: { technology: 'Angular' }
+  },
+  {
+    path: 'display-item',
+    component: RouteExampleComponent,
+  },
+  {
+    path: 'borrow-item',
+    component: RouteExampleComponent,
+  },
+  {
+    path: 'return-item',
+    component: RouteExampleComponent,
+  },
+  {
+    path: 'generate-report',
+    component: RouteExampleComponent,
   },
   {
     path: '**',
