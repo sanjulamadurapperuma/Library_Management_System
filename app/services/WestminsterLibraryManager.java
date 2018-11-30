@@ -13,11 +13,11 @@ import java.util.List;
 
 public class WestminsterLibraryManager implements LibraryManager {
     @Override
-    public void addBook(String itemName, String authorName, String readerName) {
+    public void addBook(String itemTitle, String authorName, String readerName) {
 
         BookModel book = new BookModel();
 
-        book.setName(itemName);
+        book.setTitle(itemTitle);
 
         ReaderModel reader = new ReaderModel();
         reader.setName(readerName);
@@ -52,8 +52,8 @@ public class WestminsterLibraryManager implements LibraryManager {
 
     private Book getBookDTObyModel(BookModel bookModel) {
         Book book = new Book();
-        book.setItemTitle(bookModel.getName());
-        book.setItemISBN(bookModel.getId());
+        book.setItemTitle(bookModel.getTitle());
+        book.setItemISBN(bookModel.getIsbn());
 
         Reader reader = getReaderDTObyModel(bookModel.getReader());
         book.setReader(reader);
@@ -67,6 +67,8 @@ public class WestminsterLibraryManager implements LibraryManager {
         Reader reader = new Reader();
         reader.setReaderName(readerModel.getName());
         reader.setReaderID(readerModel.getId());
+        reader.setMobileNumber(readerModel.getMobileNumber());
+        reader.setEmail(readerModel.getEmail());
 
         return reader;
     }

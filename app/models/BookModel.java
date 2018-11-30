@@ -1,6 +1,7 @@
 package models;
 
 import io.ebean.Model;
+import services.DateTime;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,33 +11,97 @@ import java.util.List;
 public class BookModel {
 
     @Id
-    @Column(name = "id")
-    private int id;
+    @Column(name = "isbn")
+    private int isbn;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "sector")
+    private String sector;
+
+    @Column(name = "publicationDate")
+    private DateTime publicationDate;
+
+    @Column(name = "dateTimeBorrowed")
+    private DateTime dateTimeBorrowed;
+
+    @ManyToMany(mappedBy = "books")
+    private List<AuthorModel> authors;
+
+    @Column(name = "publisher")
+    private String publisher;
+
+    @Column(name = "numberOfPages")
+    private int numberOfPages;
 
     @ManyToOne
     @JoinColumn(name = "reader", referencedColumnName = "id")
     private ReaderModel reader;
 
-    @ManyToMany(mappedBy = "books")
-    private List<AuthorModel> authors;
 
-    public int getId() {
-        return id;
+    public int getIsbn() {
+        return isbn;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIsbn(int isbn) {
+        this.isbn = isbn;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
+    public DateTime getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(DateTime publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public DateTime getDateTimeBorrowed() {
+        return dateTimeBorrowed;
+    }
+
+    public void setDateTimeBorrowed(DateTime dateTimeBorrowed) {
+        this.dateTimeBorrowed = dateTimeBorrowed;
+    }
+
+    public List<AuthorModel> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<AuthorModel> authors) {
+        this.authors = authors;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public int getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public void setNumberOfPages(int numberOfPages) {
+        this.numberOfPages = numberOfPages;
     }
 
     public ReaderModel getReader() {
@@ -47,11 +112,5 @@ public class BookModel {
         this.reader = reader;
     }
 
-    public List<AuthorModel> getAuthors() {
-        return authors;
-    }
 
-    public void setAuthors(List<AuthorModel> authors) {
-        this.authors = authors;
-    }
 }

@@ -32,4 +32,7 @@ export class AppService {
   public sendData(): Observable<any> {
     return this.http.post(this.dataPostTestUrl, {});
   }
+
+  public getData(){
+  }
 }

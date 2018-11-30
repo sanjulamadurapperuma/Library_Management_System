@@ -18,6 +18,12 @@ public class ReaderModel extends Model {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "mobileNumber")
+    private String mobileNumber;
+
+    @Column(name = "email")
+    private String email;
+
     public int getId() {
         return id;
     }
@@ -32,5 +38,21 @@ public class ReaderModel extends Model {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

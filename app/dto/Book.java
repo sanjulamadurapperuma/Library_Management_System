@@ -6,7 +6,7 @@ public class Book extends LibraryItem {
 
     private List<Author> authors;
     private String publisher;
-    private String numberOfPages;
+    private int numberOfPages;
 
     public List<Author> getAuthors() {
         return authors;
@@ -24,11 +24,11 @@ public class Book extends LibraryItem {
         this.publisher = publisher;
     }
 
-    public String getNumberOfPages() {
+    public int getNumberOfPages() {
         return numberOfPages;
     }
 
-    public void setNumberOfPages(String numberOfPages) {
+    public void setNumberOfPages(int numberOfPages) {
         this.numberOfPages = numberOfPages;
     }
 }

@@ -7,6 +7,9 @@ public class Reader {
     private String mobileNumber;
     private String email;
 
+    public Reader() {
+    }
+
     public Reader(int readerID, String readerName, String mobileNumber, String email) {
         this.readerID = readerID;
         this.readerName = readerName;
