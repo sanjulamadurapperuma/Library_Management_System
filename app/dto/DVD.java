@@ -6,9 +6,12 @@ public class DVD extends LibraryItem {
     private List<String> languages;
     private List<String> subtitles;
     private String producer;
-    private String actors;
+    private List<String> actors;
 
-    public DVD(List<String> languages, List<String> subtitles, String producer, String actors) {
+    public DVD() {
+    }
+
+    public DVD(List<String> languages, List<String> subtitles, String producer, List<String> actors) {
         this.languages = languages;
         this.subtitles = subtitles;
         this.producer = producer;
@@ -39,11 +42,11 @@ public class DVD extends LibraryItem {
         this.producer = producer;
     }
 
-    public String getActors() {
+    public List<String> getActors() {
         return actors;
     }
 
-    public void setActors(String actors) {
+    public void setActors(List<String> actors) {
         this.actors = actors;
     }
 }
