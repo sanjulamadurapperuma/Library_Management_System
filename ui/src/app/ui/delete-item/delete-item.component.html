@@ -15,12 +15,11 @@
     ISBN is required
   </div>
 
-
   <label for="FreeSpaces"><b>Free Spaces remaining : </b></label>
   <label ng-model="FreeSpaces" id="FreeSpaces"></label><br>
   <br>
-  <button type="reset" name="clear" class="btn btn-primary">Clear</button>
-  <button type="submit" name="submit" class="btn btn-primary" [disabled]="frm.invalid">Submit</button>
+  <button type="reset" name="clear" class="btn btn-primary" id="clearbtn">Clear</button>
+  <button type="submit" name="submit" class="btn btn-primary" id="submitbtn" [disabled]="frm.invalid">Submit</button>
 
 </form>
 </div>

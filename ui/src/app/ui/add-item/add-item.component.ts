@@ -20,8 +20,11 @@ import {Observable} from "rxjs";
 export class AddItemComponent implements OnInit {
 
   item: any;
+  options: boolean;
 
-  constructor() { }
+  constructor() {
+    this.options = true;
+  }
 
   ngOnInit() {
   }
