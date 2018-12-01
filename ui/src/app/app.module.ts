@@ -9,9 +9,6 @@ import { RouteExampleComponent } from './route-example/route-example.component';
 
 import { AppService } from './app.service';
 import { AppHttpInterceptorService } from './http-interceptor.service';
-import { LayoutComponent } from './ui/layout/layout.component';
-import { HeaderComponent } from './ui/header/header.component';
-import { FooterComponent } from './ui/footer/footer.component';
 import {AddItemComponent} from "./ui/add-item/add-item.component";
 import {DeleteItemComponent} from "./ui/delete-item/delete-item.component";
 import {BorrowItemComponent} from "./ui/borrow-item/borrow-item.component";
