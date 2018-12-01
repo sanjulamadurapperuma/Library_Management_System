@@ -19,6 +19,7 @@ import {DisplayItemComponent} from "./ui/display-item/display-item.component";
 import {GenerateReportComponent} from "./ui/generate-report/generate-report.component";
 import {HomeComponent} from "./ui/home/home.component";
 import {ReturnItemComponent} from "./ui/return-item/return-item.component";
+import {UiModule} from "./ui/ui.module";
 
 const routes: Routes = [
   {
@@ -60,9 +61,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     RouteExampleComponent,
-    LayoutComponent,
-    HeaderComponent,
-    FooterComponent,
     AddItemComponent,
     DeleteItemComponent,
     BorrowItemComponent,
@@ -79,7 +77,8 @@ const routes: Routes = [
       headerName: 'Csrf-Token',
     }),
     RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    UiModule
   ],
   providers: [
     AppService,

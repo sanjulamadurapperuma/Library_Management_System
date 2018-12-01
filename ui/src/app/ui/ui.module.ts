@@ -19,10 +19,7 @@ import {FormsModule} from "@angular/forms";
     RouterModule,
     FormsModule
   ],
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent,
-    AddItemComponent, BorrowItemComponent, DeleteItemComponent,
-    DisplayItemComponent, ReturnItemComponent,
-    GenerateReportComponent, HomeComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent],
   exports: [LayoutComponent]
 })
 export class UiModule { }
