@@ -93,4 +93,9 @@ public class HomeController extends Controller {
         }
         return ok(Json.toJson(item)).as("application/json");
     }
+
+    public Result getFreeSpace() {
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        int freeSpace = libraryManager.getFreeSpace();
+        return ok(Json.toJson(freeSpace)).as("application/json");    }
 }

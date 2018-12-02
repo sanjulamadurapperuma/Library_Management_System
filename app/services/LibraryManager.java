@@ -12,6 +12,9 @@ public interface LibraryManager {
     String deleteLibraryItem(int isbn);
     List<ItemToDisplay> getAllLibraryItems();
     ItemToDisplay searchLibraryItem(int isbn);
+    int getFreeSpace();
+    int getFreeSpaceBook();
+    int getFreeSpaceDVD();
 
     List<Book> getAllBooks();
 }

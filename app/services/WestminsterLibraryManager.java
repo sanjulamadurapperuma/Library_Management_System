@@ -101,6 +101,33 @@ public class WestminsterLibraryManager implements LibraryManager {
     }
 
     @Override
+    public int getFreeSpace() {
+        int count = Ebean.find(LibraryItemModel.class).findCount();
+        int freeSpace = 150 - count;
+        System.out.println("Count " + count);
+        System.out.println("Freespace " + freeSpace);
+        return freeSpace;
+    }
+
+    @Override
+    public int getFreeSpaceBook() {
+        int count = Ebean.find(LibraryItemModel.class).findCount();
+        int freeSpace = 150 - count;
+        System.out.println("Count " + count);
+        System.out.println("Freespace " + freeSpace);
+        return freeSpace;
+    }
+
+    @Override
+    public int getFreeSpaceDVD() {
+        int count = Ebean.find(LibraryItemModel.class).findCount();
+        int freeSpace = 150 - count;
+        System.out.println("Count " + count);
+        System.out.println("Freespace " + freeSpace);
+        return freeSpace;
+    }
+
+    @Override
     public List<Book> getAllBooks() {
         List<LibraryItemModel> bookModels = Ebean.find(LibraryItemModel.class).findList();
 
