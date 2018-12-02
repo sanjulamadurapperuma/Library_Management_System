@@ -1,10 +1,8 @@
 package services;
 
-import dto.Book;
-import dto.DVD;
-import dto.ItemToDisplay;
-import dto.Reader;
+import dto.*;
 import io.ebean.Ebean;
+import models.BorrowModel;
 import models.LibraryItemModel;
 import models.ReaderModel;
 
@@ -66,6 +64,23 @@ public class WestminsterLibraryManager implements LibraryManager {
             LibraryItemModel.find.ref(isbn).delete();
         }
         return itemType;
+    }
+
+    @Override
+    public String borrowLibraryItem(Borrow borrow){
+        LibraryItemModel itemModel = LibraryItemModel.find.byId(borrow.getIsbn());
+        if(itemModel != null){
+            return itemModel.getItemType() + "";
+        }
+
+        BorrowModel borrowModel = new BorrowModel();
+        borrowModel.setIsbn(borrow.getIsbn());
+        borrowModel.setReaderId(borrow.getReaderId());
+        DateTime date = new DateTime();
+        borrowModel.setDateTimeBorrowed(date.getTime());
+        //getting current system time
+        Ebean.save(borrowModel);
+        return null;
     }
 
     @Override
