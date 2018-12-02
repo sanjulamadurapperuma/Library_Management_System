@@ -15,6 +15,13 @@ create table author_libraryitems (
   constraint pk_author_libraryitems primary key (author_id,libraryitems_isbn)
 );
 
+create table borrow (
+  isbnnumber                    integer auto_increment not null,
+  readerid                      integer not null,
+  datetimeborrowed              varchar(255),
+  constraint pk_borrow primary key (isbnnumber)
+);
+
 create table libraryitems (
   isbn                          integer auto_increment not null,
   title                         varchar(255),
@@ -57,6 +64,8 @@ drop index ix_author_libraryitems_libraryitems on author_libraryitems;
 drop table if exists author;
 
 drop table if exists author_libraryitems;
+
+drop table if exists borrow;
 
 drop table if exists libraryitems;
 

@@ -33,6 +33,7 @@ export class AddItemComponent implements OnInit {
       formBook.value["NumberOfPages"]);
     this._addItemService.addBook(this.book).subscribe(
       data => {
+        this.getFreeSpaceBook();
         this.successMsg = "Successfully added the Book";
         this.isSuccess = true;
         formBook.resetForm();
@@ -47,6 +48,7 @@ export class AddItemComponent implements OnInit {
       formDVD.value["ProducerName"], formDVD.value["ActorName"]);
     this._addItemService.addDVD(this.dvd).subscribe(
       data => {
+        this.getFreeSpaceDVD();
         this.successMsg = "Successfully added the DVD";
         this.isSuccess = true;
         formDVD.resetForm();

@@ -1,5 +1,6 @@
 package models;
 
+import io.ebean.Finder;
 import io.ebean.Model;
 
 import javax.persistence.*;
@@ -7,19 +8,19 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "borrow")
-@Embeddable
 public class BorrowModel extends Model implements Serializable{
 
-    @EmbeddedId
-    @JoinColumn(name = "isbnNumber", referencedColumnName = "isbn")
+    @Id
+    @Column(name = "isbnNumber")
     private int isbn;
 
-    @EmbeddedId
-    @JoinColumn(name = "readerId", referencedColumnName = "id")
+    @Column(name = "readerId")
     private int readerId;
 
     @Column(name = "dateTimeBorrowed")
     private String dateTimeBorrowed;
+
+    public static Finder<Integer, BorrowModel> find = new Finder<>(BorrowModel.class);
 
     public int getIsbn() {
         return isbn;

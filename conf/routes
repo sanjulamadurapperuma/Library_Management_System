@@ -14,9 +14,6 @@ GET     /api/summary                controllers.HomeController.appSummary
 # Search Item
 GET     /api/searchItem/:isbn       controllers.HomeController.searchItem(isbn: String)
 
-# Get free space
-GET /api/freeSpace                  controllers.HomeController.getFreeSpace()
-
 # Get free space for book
 GET /api/freeSpace/book             controllers.HomeController.getFreeSpaceBook()
 

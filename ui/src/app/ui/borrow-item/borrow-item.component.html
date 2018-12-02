@@ -1,6 +1,12 @@
 <div class="jumbotron">
   <h2>Borrow an Item</h2>
   <form #frm="ngForm" (ngSubmit)="borrowItem(frm)" name="borrow-item-form" form.valid novalidate>
+    <div class="alert alert-success" *ngIf="isSuccess">
+      {{successMsg}}
+    </div>
+    <div class="alert alert-warning" *ngIf="!isSuccess && isSuccess != null">
+      {{errMsg}}
+    </div>
     <div>
       <label for="ISBN">ISBN</label>
       <input name="ISBN" class="form-control" placeholder="Enter ISBN" type="number"
@@ -27,22 +33,6 @@
       <span ng-bind="ReaderId"></span>
       Reader ID is required
     </div>
-
-    <!--Label for Date and Time Borrowed-->
-    <label for="dateTimeBorrowed">Date and Time Borrowed : </label>
-    <input type="text" class="form-control" placeholder="Enter Date and Time Borrowed :"
-           id="dateTimeBorrowed" name="dateTimeBorrowed" required
-           ngModel #dateTimeBorrowed="ngModel" pattern="^[a-zA-Z0-9_]*$">
-
-    <!--Validation for Date and Time Borrowed-->
-    <div *ngIf="dateTimeBorrowed?.touched && dateTimeBorrowed?.errors?.required"
-         class="alert-incorrect-value">
-      <span ng-bind="dateTimeBorrowed"></span>
-      Date and Time Borrowed is required
-    </div>
-
-    <label for="FreeSpaces"><b>Free Spaces remaining : </b></label>
-    <label ng-model="FreeSpaces" id="FreeSpaces"></label><br>
     <br>
     <button type="reset" name="clear" class="btn btn-primary" id="clearbtn">Clear Form</button>
     <button type="submit" name="submit" class="btn btn-primary" id="submitbtn"[disabled]="frm.invalid">Submit</button>

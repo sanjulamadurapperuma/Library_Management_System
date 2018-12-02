@@ -28,6 +28,8 @@ export class DeleteItemComponent implements OnInit {
           this.isSuccess = false;
           form.resetForm();
         } else {
+          this.getFreeSpaceBook();
+          this.getFreeSpaceDVD();
           this.successMsg = "Successfully deleted a " + data + " item";
           this.isSuccess = true;
           form.resetForm();

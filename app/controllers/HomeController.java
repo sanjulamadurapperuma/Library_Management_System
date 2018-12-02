@@ -95,12 +95,6 @@ public class HomeController extends Controller {
         return ok(Json.toJson(item)).as("application/json");
     }
 
-    public Result getFreeSpace() {
-        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
-        int freeSpace = libraryManager.getFreeSpace();
-        return ok(Json.toJson(freeSpace)).as("application/json");
-    }
-
     public Result getFreeSpaceBook() {
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
         int freeSpace = libraryManager.getFreeSpaceBook();
@@ -118,9 +112,8 @@ public class HomeController extends Controller {
         Borrow borrow = new Borrow();
         borrow.setIsbn(json.get("itemISBN").asInt());
         borrow.setReaderId(json.get("readerId").asInt());
-        borrow.setDateTimeBorrowed(json.get("dateTimeBorrowed").asText());
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
-        libraryManager.borrowLibraryItem(borrow);
-        return ok(Json.toJson(borrow)).as("application/json");
+        String status = libraryManager.borrowLibraryItem(borrow);
+        return ok(Json.toJson(status)).as("application/json");
     }
 }

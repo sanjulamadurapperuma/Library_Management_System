@@ -5,7 +5,6 @@ import services.DateTime;
 public class Borrow {
     private int isbn;
     private int readerId;
-    private String dateTimeBorrowed;
 
     public int getIsbn() {
         return isbn;
@@ -21,13 +20,5 @@ public class Borrow {
 
     public void setReaderId(int readerId) {
         this.readerId = readerId;
-    }
-
-    public String getDateTimeBorrowed() {
-        return dateTimeBorrowed;
-    }
-
-    public void setDateTimeBorrowed(String dateTimeBorrowed) {
-        this.dateTimeBorrowed = dateTimeBorrowed;
     }
 }
