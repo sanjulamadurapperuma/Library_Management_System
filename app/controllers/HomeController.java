@@ -116,4 +116,13 @@ public class HomeController extends Controller {
         String status = libraryManager.borrowLibraryItem(borrow);
         return ok(Json.toJson(status)).as("application/json");
     }
+
+    public Result returnLibraryItem(String isbn){
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        String itemType = libraryManager.returnLibraryItem(Integer.parseInt(isbn));
+        if (itemType == null) {
+            return ok(Json.toJson("This item has not been borrowed")).as("application/json");
+        }
+        return ok(Json.toJson(itemType)).as("application/json");
+    }
 }

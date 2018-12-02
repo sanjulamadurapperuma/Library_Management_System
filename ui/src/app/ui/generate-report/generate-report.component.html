@@ -1,3 +1,9 @@
-<p>
-  generate-report works!
-</p>
+<div class="jumbotron">
+  <table border="1">
+    <ng-container *ngFor="let group of groups">
+      <tr><td><h2>{{group.name}}</h2></td></tr>
+      <tr *ngFor="let item of group.items"><td>{{item}}</td></tr>
+    </ng-container>
+  </table>
+</div>
+
