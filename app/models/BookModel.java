@@ -1,10 +1,9 @@
 package models;
 
-import io.ebean.Model;
 import services.DateTime;
 
 import javax.persistence.*;
-import java.util.List;
+import java.sql.Date;
 
 @Entity
 @Table(name = "books")
@@ -21,24 +20,16 @@ public class BookModel {
     private String sector;
 
     @Column(name = "publicationDate")
-    private DateTime publicationDate;
+    private Date publicationDate;
 
-    @Column(name = "dateTimeBorrowed")
-    private DateTime dateTimeBorrowed;
-
-    @ManyToMany(mappedBy = "books")
-    private List<AuthorModel> authors;
+    @Column(name = "author")
+    private String author;
 
     @Column(name = "publisher")
     private String publisher;
 
     @Column(name = "numberOfPages")
     private int numberOfPages;
-
-    @ManyToOne
-    @JoinColumn(name = "reader", referencedColumnName = "id")
-    private ReaderModel reader;
-
 
     public int getIsbn() {
         return isbn;
@@ -64,28 +55,12 @@ public class BookModel {
         this.sector = sector;
     }
 
-    public DateTime getPublicationDate() {
+    public Date getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(DateTime publicationDate) {
+    public void setPublicationDate(Date publicationDate) {
         this.publicationDate = publicationDate;
-    }
-
-    public DateTime getDateTimeBorrowed() {
-        return dateTimeBorrowed;
-    }
-
-    public void setDateTimeBorrowed(DateTime dateTimeBorrowed) {
-        this.dateTimeBorrowed = dateTimeBorrowed;
-    }
-
-    public List<AuthorModel> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<AuthorModel> authors) {
-        this.authors = authors;
     }
 
     public String getPublisher() {
@@ -104,13 +79,11 @@ public class BookModel {
         this.numberOfPages = numberOfPages;
     }
 
-    public ReaderModel getReader() {
-        return reader;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setReader(ReaderModel reader) {
-        this.reader = reader;
+    public void setAuthor(String author) {
+        this.author = author;
     }
-
-
 }

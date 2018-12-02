@@ -7,9 +7,7 @@ public abstract class LibraryItem {
     private int itemISBN;
     private String itemTitle;
     private String itemSector;
-    private DateTime publicationDate;
-    private DateTime dateTimeBorrowed;
-    private Reader reader;
+    private String publicationDate;
 
     public int getItemISBN() {
         return itemISBN;
@@ -35,27 +33,11 @@ public abstract class LibraryItem {
         this.itemSector = itemSector;
     }
 
-    public DateTime getPublicationDate() {
+    public String getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(DateTime publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
-    }
-
-    public DateTime getDateTimeBorrowed() {
-        return dateTimeBorrowed;
-    }
-
-    public void setDateTimeBorrowed(DateTime dateTimeBorrowed) {
-        this.dateTimeBorrowed = dateTimeBorrowed;
-    }
-
-    public Reader getReader() {
-        return reader;
-    }
-
-    public void setReader(Reader reader) {
-        this.reader = reader;
     }
 }

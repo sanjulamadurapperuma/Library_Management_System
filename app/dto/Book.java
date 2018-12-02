@@ -1,19 +1,17 @@
 package dto;
 
-import java.util.List;
-
 public class Book extends LibraryItem {
 
-    private List<Author> authors;
+    private String author;
     private String publisher;
     private int numberOfPages;
 
-    public List<Author> getAuthors() {
-        return authors;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getPublisher() {

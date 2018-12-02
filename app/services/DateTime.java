@@ -14,6 +14,16 @@ public class DateTime {
         this.year = year;
     }
 
+    public DateTime(String date){
+        String dateObj = date;
+        String[] dateArray = dateObj.split("/");
+        if (dateArray.length == 3) {
+            this.day = Integer.parseInt(dateArray[0]);
+            this.month = Integer.parseInt(dateArray[1]);
+            this.year = Integer.parseInt(dateArray[2]);
+        }
+    }
+
     public DateTime(int hour, int minute){
         if ( hour >= 1 && hour <= 23){
             this.hour = hour;

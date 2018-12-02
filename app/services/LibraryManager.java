@@ -1,11 +1,12 @@
 package services;
 
 import dto.Book;
+import dto.DVD;
 
 import java.util.List;
 
 public interface LibraryManager {
-    void addBook(String itemName, String authorName, String readerName);
+    void addBook(Book book);
 
     List<Book> getAllBooks();
 }

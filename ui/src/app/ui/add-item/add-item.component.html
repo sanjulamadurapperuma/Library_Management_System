@@ -1,264 +1,266 @@
 <div class="jumbotron" ng-app="">
   <h2>Add a new Item</h2>
-<form name="addItemForm" method="GET" action="#" #frm="ngForm" (ngSubmit)="addItem(frm)"
-      ng-controller="validateCtrl" name="add-item-form" form.valid>
-  <div>
-    <label for="freespaces"><b>Number of free spaces remaining: </b></label>
-    <label id="freespaces"></label>
-  </div>
   <div>
     <p>What do you want to add? </p>
 
     <input name="options" [(ngModel)]="options" type="radio" [value]="true" [checked]="options" /> Book<br/>
 
     <input name="options" [(ngModel)]="options" type="radio" [value]="false" [checked]="options" /> DVD<br/>
-
+    <br>
   </div>
 
 
   <div>
-
     <div *ngIf="options;then bookTemplate; else dvdTemplate">
-
     </div>
 
     <ng-template #bookTemplate>
       <!--Label for ISBN-->
-      <div>
-        <label for="ISBNBook">ISBN</label>
-        <input name="ISBN" class="form-control" placeholder="Enter Book ISBN" type="text"
-               id="ISBNBook" required ng-model="isbn" ngModel #isbnNumber="ngModel"
-               pattern="[0-9]*">
-      </div>
+      <form #formBook="ngForm" (ngSubmit)="addItemBook(formBook)" name="add-item-form-book" form.valid novalidate>
+        <div class="alert alert-success" *ngIf="isSuccess">
+          {{successMsg}}
+        </div>
 
-      <!--Validation for ISBN-->
-      <div *ngIf="isbnNumber?.touched && isbnNumber?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="ISBNBook"></span>
-        ISBN is required
-      </div>
+        <div class="form-group">
+          <div>
+            <label for="ISBNBook">ISBN</label>
+            <input name="ISBN" class="form-control" placeholder="Enter Book ISBN" type="text"
+                   id="ISBNBook" required ngModel #isbnNumber="ngModel"
+                   pattern="[0-9]*">
+          </div>
+
+          <!--Validation for ISBN-->
+          <div *ngIf="isbnNumber?.touched && isbnNumber?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="ISBNBook"></span>
+            ISBN is required
+          </div>
 
 
-      <!--Label for Title-->
-      <div>
-        <label for="TitleBook">Title : </label>
-        <input type="text" placeholder="Enter Book Title " id="TitleBook" name="Title" required
-               ngModel #title="ngModel" class="form-control" pattern="[a-zA-Z][a-zA-Z]+">
-      </div>
+          <!--Label for Title-->
+          <div>
+            <label for="TitleBook">Title : </label>
+            <input type="text" placeholder="Enter Book Title " id="TitleBook" name="Title" required
+                   ngModel #title="ngModel" class="form-control" pattern="[a-zA-Z][a-zA-Z]+">
+          </div>
 
-      <!--Validation for Title-->
-      <div *ngIf="title?.touched && title?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="TitleBook"></span>
-        Title is required
-      </div>
+          <!--Validation for Title-->
+          <div *ngIf="title?.touched && title?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="TitleBook"></span>
+            Title is required
+          </div>
 
-      <!--Label for Sector-->
-      <div>
-        <label for="SectorBook">Sector : </label>
-        <input type="text" placeholder="Enter Book Sector " id="SectorBook" name="Sector" required
-               ngModel #sector="ngModel" class="form-control" pattern="[a-zA-Z][a-zA-Z]+">
-      </div>
+          <!--Label for Sector-->
+          <div>
+            <label for="SectorBook">Sector : </label>
+            <input type="text" placeholder="Enter Book Sector " id="SectorBook" name="Sector" required
+                   ngModel #sector="ngModel" class="form-control" pattern="[a-zA-Z][a-zA-Z]+">
+          </div>
 
-      <!--Validation for Sector-->
-      <div *ngIf="sector?.touched && sector?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="SectorBook"></span>
-        Sector is required
-      </div>
+          <!--Validation for Sector-->
+          <div *ngIf="sector?.touched && sector?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="SectorBook"></span>
+            Sector is required
+          </div>
 
-      <!--Label for Publication Date-->
-      <div>
-        <label for="PublicationDateBook">Publication Date : </label>
-        <input type="text" placeholder="Enter Book Publication Date (dd/mm/yyyy) " id="PublicationDateBook"
-               name="PublicationDate" required
-               ngModel #publicationDate="ngModel" class="form-control">
-      </div>
+          <!--Label for Publication Date-->
+          <div>
+            <label for="PublicationDateBook">Publication Date : </label>
+            <input type="text" placeholder="Enter Book Publication Date (dd/mm/yyyy) " id="PublicationDateBook"
+                   name="PublicationDate" required
+                   ngModel #publicationDate="ngModel" class="form-control">
+          </div>
 
-      <!--Validation for Publication Date-->
-      <div *ngIf="publicationDate?.touched && publicationDate?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="PublicationDateBook"></span>
-        Publication Date is required
-      </div>
+          <!--Validation for Publication Date-->
+          <div *ngIf="publicationDate?.touched && publicationDate?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="PublicationDateBook"></span>
+            Publication Date is required
+          </div>
 
-      <!--Label for Author Name-->
-      <div>
-        <label for="AuthorName">Author Name: </label>
-        <input type="text" placeholder="Enter Book Author Name " id="AuthorName"
-               name="AuthorName" required
-               ngModel #authorName="ngModel" class="form-control">
-      </div>
+          <!--Label for Author Name-->
+          <div>
+            <label for="AuthorName">Author Name: </label>
+            <input type="text" placeholder="Enter Book Author Name " id="AuthorName"
+                   name="AuthorName" required
+                   ngModel #authorName="ngModel" class="form-control">
+          </div>
 
-      <!--Validation for Author Name-->
-      <div *ngIf="authorName?.touched && authorName?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="AuthorName"></span>
-        Author Name is required
-      </div>
+          <!--Validation for Author Name-->
+          <div *ngIf="authorName?.touched && authorName?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="AuthorName"></span>
+            Author Name is required
+          </div>
 
-      <!--Label for Publisher Name-->
-      <div>
-        <label for="PublisherName">Publisher Name: </label>
-        <input type="text" placeholder="Enter Book Publisher Name " id="PublisherName"
-               name="PublisherName" required
-               ngModel #publisherName="ngModel" class="form-control">
-      </div>
+          <!--Label for Publisher Name-->
+          <div>
+            <label for="PublisherName">Publisher Name: </label>
+            <input type="text" placeholder="Enter Book Publisher Name " id="PublisherName"
+                   name="PublisherName" required
+                   ngModel #publisherName="ngModel" class="form-control">
+          </div>
 
-      <!--Validation for Publisher Name-->
-      <div *ngIf="authorName?.touched && authorName?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="PublisherName"></span>
-        Publisher Name is required
-      </div>
+          <!--Validation for Publisher Name-->
+          <div *ngIf="authorName?.touched && authorName?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="PublisherName"></span>
+            Publisher Name is required
+          </div>
 
-      <!--Label for Number of Pages-->
-      <div>
-        <label for="NumberOfPages">Number of Pages: </label>
-        <input type="text" placeholder="Enter Number of Pages " id="NumberOfPages"
-               name="NumberOfPages" required
-               ngModel #numberOfPages="ngModel" class="form-control">
-      </div>
+          <!--Label for Number of Pages-->
+          <div>
+            <label for="NumberOfPages">Number of Pages: </label>
+            <input type="text" placeholder="Enter Number of Pages " id="NumberOfPages"
+                   name="NumberOfPages" required
+                   ngModel #numberOfPages="ngModel" class="form-control">
+          </div>
 
-      <!--Validation for Number of Pages-->
-      <div *ngIf="numberOfPages?.touched && numberOfPages?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="NumberOfPages"></span>
-        Number of Pages is required
-      </div>
+          <!--Validation for Number of Pages-->
+          <div *ngIf="numberOfPages?.touched && numberOfPages?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="NumberOfPages"></span>
+            Number of Pages is required
+          </div>
 
-      <button type="reset" class="btn btn-primary" id="clearbtn1">Clear Form</button>
-      <button type="submit" class="btn btn-primary" id="submitbtn1" [disabled]="frm.invalid">Submit</button>
+          <button type="reset" class="btn btn-primary" id="clearbtn1">Clear Form</button>
+          <button type="submit" class="btn btn-primary" id="submitbtn1" [disabled]="formBook.invalid">Submit</button>
+        </div>
+      </form>
     </ng-template>
 
 
     <ng-template #dvdTemplate>
-      <!--Label for ISBN-->
-      <div>
-        <label for="ISBNDVD">ISBN</label>
-        <input name="ISBN" class="form-control" placeholder="Enter DVD ISBN" type="text"
-               id="ISBNDVD" required ng-model="isbn" ngModel #isbnNumber="ngModel"
-               pattern="[0-9]*">
-      </div>
+      <form #formDVD="ngForm" (ngSubmit)="addItemDVD(formDVD)" name="add-item-form-book" form.valid novalidate>
+        <div class="alert alert-success" *ngIf="isSuccess">
+          {{successMsg}}
+        </div>
+        <div class="form-group">
+          <!--Label for ISBN-->
+          <div>
+            <label for="ISBNDVD">ISBN</label>
+            <input name="ISBN" class="form-control" placeholder="Enter DVD ISBN" type="text"
+                   id="ISBNDVD" required ng-model="isbn" ngModel #isbnNumber="ngModel"
+                   pattern="[0-9]*">
+          </div>
 
-      <!--Validation for ISBN-->
-      <div *ngIf="isbnNumber?.touched && isbnNumber?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="ISBNDVD"></span>
-        ISBN is required
-      </div>
+          <!--Validation for ISBN-->
+          <div *ngIf="isbnNumber?.touched && isbnNumber?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="ISBNDVD"></span>
+            ISBN is required
+          </div>
 
 
-      <!--Label for Title-->
-      <div>
-        <label for="TitleDVD">Title : </label>
-        <input type="text" placeholder="Enter DVD Title " id="TitleDVD" name="Title" required
-               ngModel #title="ngModel" class="form-control" pattern="[a-zA-Z][a-zA-Z]+">
-      </div>
+          <!--Label for Title-->
+          <div>
+            <label for="TitleDVD">Title : </label>
+            <input type="text" placeholder="Enter DVD Title " id="TitleDVD" name="Title" required
+                   ngModel #title="ngModel" class="form-control" pattern="[a-zA-Z][a-zA-Z]+">
+          </div>
 
-      <!--Validation for Title-->
-      <div *ngIf="title?.touched && title?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="TitleDVD"></span>
-        Title is required
-      </div>
+          <!--Validation for Title-->
+          <div *ngIf="title?.touched && title?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="TitleDVD"></span>
+            Title is required
+          </div>
 
-      <!--Label for Sector-->
-      <div>
-        <label for="SectorDVD">Sector : </label>
-        <input type="text" placeholder="Enter DVD Sector " id="SectorDVD" name="Sector" required
-               ngModel #sector="ngModel" class="form-control" pattern="[a-zA-Z][a-zA-Z]+">
-      </div>
+          <!--Label for Sector-->
+          <div>
+            <label for="SectorDVD">Sector : </label>
+            <input type="text" placeholder="Enter DVD Sector " id="SectorDVD" name="Sector" required
+                   ngModel #sector="ngModel" class="form-control" pattern="[a-zA-Z][a-zA-Z]+">
+          </div>
 
-      <!--Validation for Sector-->
-      <div *ngIf="sector?.touched && sector?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="SectorDVD"></span>
-        Sector is required
-      </div>
+          <!--Validation for Sector-->
+          <div *ngIf="sector?.touched && sector?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="SectorDVD"></span>
+            Sector is required
+          </div>
 
-      <!--Label for Publication Date-->
-      <div>
-        <label for="PublicationDateDVD">Publication Date : </label>
-        <input type="text" placeholder="Enter DVD Publication Date (dd/mm/yyyy) " id="PublicationDateDVD"
-               name="PublicationDate" required
-               ngModel #publicationDate="ngModel" class="form-control">
-      </div>
+          <!--Label for Publication Date-->
+          <div>
+            <label for="PublicationDateDVD">Publication Date : </label>
+            <input type="text" placeholder="Enter DVD Publication Date (dd/mm/yyyy) " id="PublicationDateDVD"
+                   name="PublicationDate" required
+                   ngModel #publicationDate="ngModel" class="form-control">
+          </div>
 
-      <!--Validation for Publication Date-->
-      <div *ngIf="publicationDate?.touched && publicationDate?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="PublicationDateDVD"></span>
-        Publication Date is required
-      </div>
+          <!--Validation for Publication Date-->
+          <div *ngIf="publicationDate?.touched && publicationDate?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="PublicationDateDVD"></span>
+            Publication Date is required
+          </div>
 
-      <!--Label for Language-->
-      <div>
-        <label for="Language">Language: </label>
-        <input type="text" placeholder="Enter DVD Language " id="Language"
-               name="Language" required
-               ngModel #language="ngModel" class="form-control">
-      </div>
+          <!--Label for Language-->
+          <div>
+            <label for="Language">Language: </label>
+            <input type="text" placeholder="Enter DVD Language " id="Language"
+                   name="Language" required
+                   ngModel #language="ngModel" class="form-control">
+          </div>
 
-      <!--Validation for Language-->
-      <div *ngIf="language?.touched && language?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="Language"></span>
-        Language is required
-      </div>
+          <!--Validation for Language-->
+          <div *ngIf="language?.touched && language?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="Language"></span>
+            Language is required
+          </div>
 
-      <!--Label for Subtitle-->
-      <div>
-        <label for="Subtitle">Subtitle: </label>
-        <input type="text" placeholder="Enter DVD Subtitle " id="Subtitle"
-               name="Subtitle" required
-               ngModel #subtitle="ngModel" class="form-control">
-      </div>
+          <!--Label for Subtitle-->
+          <div>
+            <label for="Subtitle">Subtitle: </label>
+            <input type="text" placeholder="Enter DVD Subtitle " id="Subtitle"
+                   name="Subtitle" required
+                   ngModel #subtitle="ngModel" class="form-control">
+          </div>
 
-      <!--Validation for Subtitle-->
-      <div *ngIf="subtitle?.touched && subtitle?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="Subtitle"></span>
-        Subtitle is required
-      </div>
+          <!--Validation for Subtitle-->
+          <div *ngIf="subtitle?.touched && subtitle?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="Subtitle"></span>
+            Subtitle is required
+          </div>
 
-      <!--Label for Producer Name-->
-      <div>
-        <label for="ProducerName">Producer Name: </label>
-        <input type="text" placeholder="Enter DVD Producer Name " id="ProducerName"
-               name="ProducerName" required
-               ngModel #producerName="ngModel" class="form-control">
-      </div>
+          <!--Label for Producer Name-->
+          <div>
+            <label for="ProducerName">Producer Name: </label>
+            <input type="text" placeholder="Enter DVD Producer Name " id="ProducerName"
+                   name="ProducerName" required
+                   ngModel #producerName="ngModel" class="form-control">
+          </div>
 
-      <!--Validation for Producer Name-->
-      <div *ngIf="producerName?.touched && producerName?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="ProducerName"></span>
-        Producer Name is required
-      </div>
+          <!--Validation for Producer Name-->
+          <div *ngIf="producerName?.touched && producerName?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="ProducerName"></span>
+            Producer Name is required
+          </div>
 
-      <!--Label for Actor Name-->
-      <div>
-        <label for="ActorName">Actor Name: </label>
-        <input type="text" placeholder="Enter DVD Actor Name " id="ActorName"
-               name="ActorName" required
-               ngModel #actorName="ngModel" class="form-control">
-      </div>
+          <!--Label for Actor Name-->
+          <div>
+            <label for="ActorName">Actor Name: </label>
+            <input type="text" placeholder="Enter DVD Actor Name " id="ActorName"
+                   name="ActorName" required
+                   ngModel #actorName="ngModel" class="form-control">
+          </div>
 
-      <!--Validation for Actor Name-->
-      <div *ngIf="actorName?.touched && actorName?.errors?.required"
-           class="alert-incorrect-value">
-        <span ng-bind="ActorName"></span>
-        Actor Name is required
-      </div>
+          <!--Validation for Actor Name-->
+          <div *ngIf="actorName?.touched && actorName?.errors?.required"
+               class="alert-incorrect-value">
+            <span ng-bind="ActorName"></span>
+            Actor Name is required
+          </div>
 
-      <button type="reset" class="btn btn-primary" id="clearbtn">Clear Form</button>
-      <button type="submit" class="btn btn-primary" id="submitbtn" [disabled]="frm.invalid">Submit</button>
+          <button type="reset" class="btn btn-primary" id="clearbtn">Clear Form</button>
+          <button type="submit" class="btn btn-primary" id="submitbtn" [disabled]="formDVD.invalid">Submit</button>
+          </div>
+      </form>
     </ng-template>
-
-
   </div>
-
-
-</form>
 </div>
