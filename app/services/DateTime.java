@@ -1,5 +1,8 @@
 package services;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DateTime {
     private int day;
     private int month;
@@ -7,6 +10,9 @@ public class DateTime {
 
     private int hour;
     private int minute;
+
+    public DateTime() {
+    }
 
     public DateTime(int day, int month, int year){
         this.day = day;
@@ -118,6 +124,13 @@ public class DateTime {
 
     public void setMinute(int minute) {
         this.minute = minute;
+    }
+
+    public String getTime(){
+        long currentDate = System.currentTimeMillis();
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date resultdate = new Date(currentDate);
+        return sdf1.format(resultdate);
     }
 
     @Override

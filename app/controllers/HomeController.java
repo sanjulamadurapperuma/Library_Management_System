@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import dto.Book;
+import dto.Borrow;
 import dto.DVD;
 import dto.ItemToDisplay;
 import play.libs.Json;
@@ -92,5 +93,16 @@ public class HomeController extends Controller {
             return ok(Json.toJson("notAvailable")).as("application/json");
         }
         return ok(Json.toJson(item)).as("application/json");
+    }
+
+    public Result borrowLibraryItem(){
+        JsonNode json = request().body().asJson();
+        Borrow borrow = new Borrow();
+        borrow.setIsbn(json.get("itemISBN").asInt());
+        borrow.setReaderId(json.get("readerId").asInt());
+        borrow.setDateTimeBorrowed(json.get("dateTimeBorrowed").asText());
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        libraryManager.borrowLibraryItem(borrow);
+        return ok(Json.toJson(borrow)).as("application/json");
     }
 }

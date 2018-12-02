@@ -64,7 +64,7 @@ const routes: Routes = [
     DisplayItemComponent,
     GenerateReportComponent,
     HomeComponent,
-    ReturnItemComponent
+    ReturnItemComponent,
   ],
   imports: [
     BrowserModule,

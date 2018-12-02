@@ -9,16 +9,16 @@
   </div>
   <div class="form-group">
   <div>
-    <label for="ISBNBook">ISBN</label>
-    <input name="ISBN" class="form-control" placeholder="Enter Book ISBN" type="number"
-           id="ISBNBook" required ngModel #isbnNumber="ngModel"
+    <label for="ISBN">ISBN</label>
+    <input name="ISBN" class="form-control" placeholder="Enter ISBN" type="number"
+           id="ISBN" required ngModel #isbnNumber="ngModel"
            pattern="[0-9]*">
   </div>
 
   <!--Validation for ISBN-->
   <div *ngIf="isbnNumber?.touched && isbnNumber?.errors?.required"
        class="alert-incorrect-value">
-    <span ng-bind="ISBNBook"></span>
+    <span ng-bind="ISBN"></span>
     ISBN is required
   </div>
 

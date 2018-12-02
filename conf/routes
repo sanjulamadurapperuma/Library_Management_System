@@ -24,5 +24,7 @@ POST    /api/postTest               controllers.HomeController.postTest()
 POST    /api/addBook                controllers.HomeController.addBook
 POST    /api/addDVD                 controllers.HomeController.addDVD
 
+POST    /api/borrowLibraryItem      controllers.HomeController.borrowLibraryItem
+
 # Delete Library Item
 DELETE  /api/deleteLibraryItem/:isbn      controllers.HomeController.deleteLibraryItem(isbn: String)

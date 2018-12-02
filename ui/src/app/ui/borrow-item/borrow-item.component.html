@@ -1,12 +1,10 @@
 <div class="jumbotron">
   <h2>Borrow an Item</h2>
-  <form method="GET" action="#" #frm="ngForm" (ngSubmit)="borrowItem(frm)"
-        ng-controller="validateCtrl" name="borrow-item-form" form.valid>
-    <!--Label for ISBN-->
+  <form #frm="ngForm" (ngSubmit)="borrowItem(frm)" name="borrow-item-form" form.valid novalidate>
     <div>
       <label for="ISBN">ISBN</label>
-      <input name="ISBN" class="form-control" placeholder="Enter ISBN" type="text"
-             id="ISBN" required ng-model="isbn" ngModel #isbnNumber="ngModel"
+      <input name="ISBN" class="form-control" placeholder="Enter ISBN" type="number"
+             id="ISBN" required ngModel #isbnNumber="ngModel"
              pattern="[0-9]*">
     </div>
 
@@ -30,11 +28,24 @@
       Reader ID is required
     </div>
 
+    <!--Label for Date and Time Borrowed-->
+    <label for="dateTimeBorrowed">Date and Time Borrowed : </label>
+    <input type="text" class="form-control" placeholder="Enter Date and Time Borrowed :"
+           id="dateTimeBorrowed" name="dateTimeBorrowed" required
+           ngModel #dateTimeBorrowed="ngModel" pattern="^[a-zA-Z0-9_]*$">
+
+    <!--Validation for Date and Time Borrowed-->
+    <div *ngIf="dateTimeBorrowed?.touched && dateTimeBorrowed?.errors?.required"
+         class="alert-incorrect-value">
+      <span ng-bind="dateTimeBorrowed"></span>
+      Date and Time Borrowed is required
+    </div>
+
     <label for="FreeSpaces"><b>Free Spaces remaining : </b></label>
     <label ng-model="FreeSpaces" id="FreeSpaces"></label><br>
     <br>
-    <button type="reset" name="clear" class="btn btn-primary">Clear Form</button>
-    <button type="submit" name="submit" class="btn btn-primary" [disabled]="frm.invalid">Submit</button>
+    <button type="reset" name="clear" class="btn btn-primary" id="clearbtn">Clear Form</button>
+    <button type="submit" name="submit" class="btn btn-primary" id="submitbtn"[disabled]="frm.invalid">Submit</button>
 
   </form>
 </div>
