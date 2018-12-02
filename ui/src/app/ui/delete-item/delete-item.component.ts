@@ -11,6 +11,7 @@ import {
 } from "@angular/forms";
 import {FormHooks} from "@angular/forms/src/model";
 import {Observable} from "rxjs";
+import {DeleteItemService} from "./delete-item.service";
 
 @Component({
   selector: 'app-delete-item',
@@ -18,46 +19,16 @@ import {Observable} from "rxjs";
   styleUrls: ['./delete-item.component.css']
 })
 export class DeleteItemComponent implements OnInit {
+  successMsg: string = null;
+  isSuccess: boolean;
+  item: any;
 
-  constructor() { }
+  constructor(private _deleteItemService: DeleteItemService) { }
 
   ngOnInit() {
   }
 
-  deleteItem(frm: {
-    submitted: boolean; _directives; form: FormGroup; ngSubmit: EventEmitter<{}>;
-    options: { updateOn?: FormHooks };
-    ngAfterViewInit: { (): void; (): void };
-    formDirective: Form; control: FormGroup;
-    path: string[]; controls: {
-      [p: string]: AbstractControl };
-    addControl: {
-      (dir: NgModel): void;
-      (dir: NgControl): void };
-    getControl: { (dir: NgModel): FormControl;
-    (dir: NgControl): FormControl };
-    removeControl: { (dir: NgModel): void;
-    (dir: NgControl): void };
-    addFormGroup: { (dir: NgModelGroup): void;
-    (dir: AbstractFormGroupDirective): void };
-    removeFormGroup: { (dir: NgModelGroup): void;
-    (dir: AbstractFormGroupDirective): void };
-    getFormGroup: { (dir: NgModelGroup): FormGroup;
-    (dir: AbstractFormGroupDirective): FormGroup };
-    updateModel: { (dir: NgControl, value: any): void;
-    (dir: NgControl, value: any): void };
-    setValue(value: { [p: string]: any }): void;
-    onSubmit($event: Event):
-      boolean; onReset(): void;
-      resetForm(value?: any): void; _setUpdateStrategy;
-      name: string; value: any; valid: boolean | null; invalid: boolean |
-      null; pending: boolean | null; disabled: boolean | null;
-      enabled: boolean | null; errors: ValidationErrors | null; pristine: boolean |
-      null; dirty: boolean | null; touched: boolean | null; status: string | null;
-      untouched: boolean | null; statusChanges: Observable<any> | null; valueChanges:
-      Observable<any> | null; reset(value?: any): void; hasError(errorCode: string, path?: string[]):
-      boolean; getError(errorCode: string, path?: string[]): any
-  }) {
+  deleteItem(form){
 
   }
 }

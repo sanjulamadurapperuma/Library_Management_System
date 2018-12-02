@@ -1,16 +1,16 @@
 package models;
 
-import io.ebean.Model;
-import services.DateTime;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "dvds")
-public class DVDModel extends Model {
+@Table(name = "libraryitems")
+public class LibraryItemModel {
 
+    /*Start of LibraryItem attributes*/
     @Id
     @Column(name = "isbn")
     private int isbn;
@@ -24,6 +24,23 @@ public class DVDModel extends Model {
     @Column(name = "publicationDate")
     private Date publicationDate;
 
+    /*End of LibraryItem attributes*/
+
+    /*Start of Book attributes*/
+
+    @Column(name = "author")
+    private String author;
+
+    @Column(name = "publisher")
+    private String publisher;
+
+    @Column(name = "numberOfPages")
+    private int numberOfPages;
+
+    /*End of Book attributes*/
+
+    /*Start of DVD attributes*/
+
     @Column(name = "languages")
     private String languages;
 
@@ -35,6 +52,12 @@ public class DVDModel extends Model {
 
     @Column(name = "actors")
     private String actors;
+
+    /*End of DVD attributes*/
+
+    //LibraryItem type check
+    @Column(name = "type")
+    private String itemType;
 
     public int getIsbn() {
         return isbn;
@@ -68,6 +91,30 @@ public class DVDModel extends Model {
         this.publicationDate = publicationDate;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public int getNumberOfPages() {
+        return numberOfPages;
+    }
+
+    public void setNumberOfPages(int numberOfPages) {
+        this.numberOfPages = numberOfPages;
+    }
+
     public String getLanguages() {
         return languages;
     }
@@ -98,5 +145,13 @@ public class DVDModel extends Model {
 
     public void setActors(String actors) {
         this.actors = actors;
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
     }
 }

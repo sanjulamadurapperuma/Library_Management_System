@@ -4,8 +4,7 @@ import dto.Book;
 import dto.DVD;
 import dto.Reader;
 import io.ebean.Ebean;
-import models.BookModel;
-import models.DVDModel;
+import models.LibraryItemModel;
 import models.ReaderModel;
 
 import java.text.ParseException;
@@ -17,7 +16,7 @@ public class WestminsterLibraryManager implements LibraryManager {
     @Override
     public void addBook(Book book) {
         try {
-            BookModel bookModel = new BookModel();
+            LibraryItemModel bookModel = new LibraryItemModel();
             bookModel.setIsbn(book.getItemISBN());
             bookModel.setTitle(book.getItemTitle());
             bookModel.setSector(book.getItemSector());
@@ -28,6 +27,7 @@ public class WestminsterLibraryManager implements LibraryManager {
             bookModel.setAuthor(book.getAuthor());
             bookModel.setPublisher(book.getPublisher());
             bookModel.setNumberOfPages(book.getNumberOfPages());
+            bookModel.setItemType("Book");
             Ebean.save(bookModel);
         } catch (ParseException e) {
             System.out.println("Error occurred while parsing Date");
@@ -37,7 +37,7 @@ public class WestminsterLibraryManager implements LibraryManager {
     @Override
     public void addDVD(DVD dvd) {
         try {
-            DVDModel dvdModel = new DVDModel();
+            LibraryItemModel dvdModel = new LibraryItemModel();
             dvdModel.setIsbn(dvd.getItemISBN());
             dvdModel.setTitle(dvd.getItemTitle());
             dvdModel.setSector(dvd.getItemSector());
@@ -49,6 +49,7 @@ public class WestminsterLibraryManager implements LibraryManager {
             dvdModel.setSubtitles(dvd.getSubtitles());
             dvdModel.setProducer(dvd.getProducer());
             dvdModel.setActors(dvd.getActors());
+            dvdModel.setItemType("DVD");
             Ebean.save(dvdModel);
         } catch (ParseException e) {
             System.out.println("Error occurred while parsing Date");
@@ -57,11 +58,11 @@ public class WestminsterLibraryManager implements LibraryManager {
 
     @Override
     public List<Book> getAllBooks() {
-        List<BookModel> bookModels = Ebean.find(BookModel.class).findList();
+        List<LibraryItemModel> bookModels = Ebean.find(LibraryItemModel.class).findList();
 
         List<Book> books = new ArrayList<>();
 
-        for (BookModel bookModel : bookModels) {
+        for (LibraryItemModel bookModel : bookModels) {
             Book book = getBookDTObyModel(bookModel);
             books.add(book);
         }
@@ -69,7 +70,7 @@ public class WestminsterLibraryManager implements LibraryManager {
         return books;
     }
 
-    private Book getBookDTObyModel(BookModel bookModel) {
+    private Book getBookDTObyModel(LibraryItemModel bookModel) {
         Book book = new Book();
         book.setItemTitle(bookModel.getTitle());
         book.setItemISBN(bookModel.getIsbn());

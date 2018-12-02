@@ -16,7 +16,7 @@ public class AuthorModel extends Model {
     private String name;
 
     @ManyToMany
-    private List<BookModel> books;
+    private List<LibraryItemModel> books;
 
     public int getId() {
         return id;
@@ -34,11 +34,11 @@ public class AuthorModel extends Model {
         this.name = name;
     }
 
-    public List<BookModel> getBooks() {
+    public List<LibraryItemModel> getBooks() {
         return books;
     }
 
-    public void setBooks(List<BookModel> books) {
+    public void setBooks(List<LibraryItemModel> books) {
         this.books = books;
     }
 }
