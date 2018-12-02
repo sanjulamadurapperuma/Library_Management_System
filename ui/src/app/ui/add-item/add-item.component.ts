@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {AddItemService} from './add-item.service';
 import {Book} from "../../book";
+import {DVD} from "../../dvd";
 
 @Component({
   selector: 'app-add-item',
@@ -13,6 +14,7 @@ export class AddItemComponent implements OnInit {
   item: any;
   options: boolean;
   book: Book;
+  dvd: DVD;
 
   constructor(private _addItemService: AddItemService) {
     this.options = true;
@@ -31,14 +33,19 @@ export class AddItemComponent implements OnInit {
     );
     this.successMsg = "Successfully added the Book";
     this.isSuccess = true;
-    console.log(this.book);
     formBook.resetForm();
   }
 
   addItemDVD(formDVD) {
+    this.dvd = new DVD(formDVD.value["ISBN"], formDVD.value["Title"], formDVD.value["Sector"],
+      formDVD.value["PublicationDate"], formDVD.value["Language"], formDVD.value["Subtitle"],
+      formDVD.value["ProducerName"], formDVD.value["ActorName"]);
+    this._addItemService.addDVD(this.dvd).subscribe(
+      data => console.log('Success', data),
+      error => console.log('Error', error)
+    );
     this.successMsg = "Successfully added the DVD";
     this.isSuccess = true;
-    console.log(formDVD.value);
     formDVD.resetForm();
   }
 }

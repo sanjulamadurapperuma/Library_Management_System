@@ -1,36 +1,24 @@
 package dto;
 
-import java.util.List;
-
 public class DVD extends LibraryItem {
-    private List<String> languages;
-    private List<String> subtitles;
+    private String languages;
+    private String subtitles;
     private String producer;
-    private List<String> actors;
+    private String actors;
 
-    public DVD() {
-    }
-
-    public DVD(List<String> languages, List<String> subtitles, String producer, List<String> actors) {
-        this.languages = languages;
-        this.subtitles = subtitles;
-        this.producer = producer;
-        this.actors = actors;
-    }
-
-    public List<String> getLanguages() {
+    public String getLanguages() {
         return languages;
     }
 
-    public void setLanguages(List<String> languages) {
+    public void setLanguages(String languages) {
         this.languages = languages;
     }
 
-    public List<String> getSubtitles() {
+    public String getSubtitles() {
         return subtitles;
     }
 
-    public void setSubtitles(List<String> subtitles) {
+    public void setSubtitles(String subtitles) {
         this.subtitles = subtitles;
     }
 
@@ -42,11 +30,11 @@ public class DVD extends LibraryItem {
         this.producer = producer;
     }
 
-    public List<String> getActors() {
+    public String getActors() {
         return actors;
     }
 
-    public void setActors(List<String> actors) {
+    public void setActors(String actors) {
         this.actors = actors;
     }
 }

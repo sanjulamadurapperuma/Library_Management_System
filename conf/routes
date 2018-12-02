@@ -16,3 +16,4 @@ POST    /api/postTest               controllers.HomeController.postTest()
 
 # Add libraryItem
 POST    /api/addBook                controllers.HomeController.addBook
+POST    /api/addDVD                 controllers.HomeController.addDVD

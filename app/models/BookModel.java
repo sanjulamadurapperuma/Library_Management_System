@@ -1,7 +1,5 @@
 package models;
 
-import services.DateTime;
-
 import javax.persistence.*;
 import java.sql.Date;
 

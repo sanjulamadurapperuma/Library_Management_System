@@ -30,8 +30,11 @@ create table dvds (
   isbn                          integer auto_increment not null,
   title                         varchar(255),
   sector                        varchar(255),
+  publicationdate               date,
+  languages                     varchar(255),
+  subtitles                     varchar(255),
   producer                      varchar(255),
-  reader                        integer,
+  actors                        varchar(255),
   constraint pk_dvds primary key (isbn)
 );
 
@@ -49,9 +52,6 @@ create index ix_author_books_author on author_books (author_id);
 alter table author_books add constraint fk_author_books_books foreign key (books_isbn) references books (isbn) on delete restrict on update restrict;
 create index ix_author_books_books on author_books (books_isbn);
 
-alter table dvds add constraint fk_dvds_reader foreign key (reader) references reader (id) on delete restrict on update restrict;
-create index ix_dvds_reader on dvds (reader);
-
 
 # --- !Downs
 
@@ -60,9 +60,6 @@ drop index ix_author_books_author on author_books;
 
 alter table author_books drop foreign key fk_author_books_books;
 drop index ix_author_books_books on author_books;
-
-alter table dvds drop foreign key fk_dvds_reader;
-drop index ix_dvds_reader on dvds;
 
 drop table if exists author;
 

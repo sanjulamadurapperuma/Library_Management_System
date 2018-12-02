@@ -1,10 +1,11 @@
 package services;
 
 import dto.Book;
+import dto.DVD;
 import dto.Reader;
 import io.ebean.Ebean;
-import models.AuthorModel;
 import models.BookModel;
+import models.DVDModel;
 import models.ReaderModel;
 
 import java.text.ParseException;
@@ -28,6 +29,27 @@ public class WestminsterLibraryManager implements LibraryManager {
             bookModel.setPublisher(book.getPublisher());
             bookModel.setNumberOfPages(book.getNumberOfPages());
             Ebean.save(bookModel);
+        } catch (ParseException e) {
+            System.out.println("Error occurred while parsing Date");
+        }
+    }
+
+    @Override
+    public void addDVD(DVD dvd) {
+        try {
+            DVDModel dvdModel = new DVDModel();
+            dvdModel.setIsbn(dvd.getItemISBN());
+            dvdModel.setTitle(dvd.getItemTitle());
+            dvdModel.setSector(dvd.getItemSector());
+            SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date date = sdf1.parse(dvd.getPublicationDate());
+            java.sql.Date publicationDate = new java.sql.Date(date.getTime());
+            dvdModel.setPublicationDate(publicationDate);
+            dvdModel.setLanguages(dvd.getLanguages());
+            dvdModel.setSubtitles(dvd.getSubtitles());
+            dvdModel.setProducer(dvd.getProducer());
+            dvdModel.setActors(dvd.getActors());
+            Ebean.save(dvdModel);
         } catch (ParseException e) {
             System.out.println("Error occurred while parsing Date");
         }

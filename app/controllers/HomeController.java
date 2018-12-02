@@ -1,16 +1,11 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import dto.Author;
 import dto.Book;
+import dto.DVD;
 import play.libs.Json;
 import play.mvc.*;
-import services.DateTime;
 import services.WestminsterLibraryManager;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 class AppSummary {
     private String content;
@@ -53,5 +48,21 @@ public class HomeController extends Controller {
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
         libraryManager.addBook(book);
         return ok(Json.toJson(book)).as("application/json");
+    }
+
+    public Result addDVD() {
+        JsonNode json = request().body().asJson();
+        DVD dvd = new DVD();
+        dvd.setItemISBN(json.get("itemISBN").asInt());
+        dvd.setItemTitle(json.get("itemTitle").asText());
+        dvd.setItemSector(json.get("itemTitle").asText());
+        dvd.setPublicationDate(json.get("publicationDate").asText());
+        dvd.setLanguages(json.get("languages").asText());
+        dvd.setSubtitles(json.get("subtitles").asText());
+        dvd.setProducer(json.get("producer").asText());
+        dvd.setActors(json.get("actors").asText());
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        libraryManager.addDVD(dvd);
+        return ok(Json.toJson(dvd)).as("application/json");
     }
 }
