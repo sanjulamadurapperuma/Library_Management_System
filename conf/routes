@@ -18,10 +18,10 @@ GET     /api/searchItem/:isbn       controllers.HomeController.searchItem(isbn: 
 GET /api/freeSpace                  controllers.HomeController.getFreeSpace()
 
 # Get free space for book
-GET /api/freeSpace/book                  controllers.HomeController.getFreeSpaceBook()
+GET /api/freeSpace/book             controllers.HomeController.getFreeSpaceBook()
 
 # Get free space for dvd
-GET /api/freeSpace/dvd                  controllers.HomeController.getFreeSpaceDVD()
+GET /api/freeSpace/dvd              controllers.HomeController.getFreeSpaceDVD()
 
 # Serve static assets under public directory
 GET     /*file                      controllers.FrontendController.assetOrDefault(file)

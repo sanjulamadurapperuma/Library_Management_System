@@ -98,7 +98,20 @@ public class HomeController extends Controller {
     public Result getFreeSpace() {
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
         int freeSpace = libraryManager.getFreeSpace();
-        return ok(Json.toJson(freeSpace)).as("application/json");    }
+        return ok(Json.toJson(freeSpace)).as("application/json");
+    }
+
+    public Result getFreeSpaceBook() {
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        int freeSpace = libraryManager.getFreeSpaceBook();
+        return ok(Json.toJson(freeSpace)).as("application/json");
+    }
+
+    public Result getFreeSpaceDVD() {
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        int freeSpace = libraryManager.getFreeSpaceDVD();
+        return ok(Json.toJson(freeSpace)).as("application/json");
+    }
 
     public Result borrowLibraryItem(){
         JsonNode json = request().body().asJson();

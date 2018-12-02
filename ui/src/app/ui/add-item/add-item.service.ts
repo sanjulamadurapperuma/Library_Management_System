@@ -10,8 +10,8 @@ export class AddItemService {
 
   _urlBook = '/api/addBook';
   _urlDVD = '/api/addDVD';
-  _urlFreeSpaceBook = '/api/freeSpaceBook';
-  _urlFreeSpaceDVD = '/api/freeSpaceDVD';
+  _urlFreeSpaceBook = '/api/freeSpace/book';
+  _urlFreeSpaceDVD = '/api/freeSpace/dvd';
   constructor(private _http: HttpClient) { }
 
   addBook(book: Book) {
@@ -22,7 +22,11 @@ export class AddItemService {
     return this._http.post<any>(this._urlDVD, dvd);
   }
 
-  getFreeSpace() {
-    return this._http.post<any>(this._urlFreeSpaceBook, book);
+  getFreeSpaceBook() {
+    return this._http.get(this._urlFreeSpaceBook);
+  }
+
+  getFreeSpaceDVD() {
+    return this._http.get(this._urlFreeSpaceDVD);
   }
 }

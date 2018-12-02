@@ -11,6 +11,8 @@ import {DVD} from "../../dvd";
 export class AddItemComponent implements OnInit {
   successMsg: string = null;
   isSuccess: boolean;
+  bookFreeSpace: string;
+  dvdFreeSpace: string;
   item: any;
   options: boolean;
   book: Book;
@@ -18,6 +20,8 @@ export class AddItemComponent implements OnInit {
 
   constructor(private _addItemService: AddItemService) {
     this.options = true;
+    this.getFreeSpaceBook();
+    this.getFreeSpaceDVD();
   }
 
   ngOnInit() {
@@ -46,6 +50,24 @@ export class AddItemComponent implements OnInit {
         this.successMsg = "Successfully added the DVD";
         this.isSuccess = true;
         formDVD.resetForm();
+      },
+      error => console.log('Error', error)
+    );
+  }
+
+  getFreeSpaceBook() {
+    this._addItemService.getFreeSpaceBook().subscribe(
+      data => {
+        this.bookFreeSpace = data.toString();
+      },
+      error => console.log('Error', error)
+    );
+  }
+
+  getFreeSpaceDVD() {
+    this._addItemService.getFreeSpaceDVD().subscribe(
+      data => {
+        this.dvdFreeSpace = data.toString();
       },
       error => console.log('Error', error)
     );

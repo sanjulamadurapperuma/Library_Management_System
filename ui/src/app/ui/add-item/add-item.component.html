@@ -9,6 +9,13 @@
     <br>
   </div>
 
+  <div *ngIf="options">
+    <p>Available free space for Books is {{bookFreeSpace}} Items</p>
+  </div>
+  <div *ngIf="!options">
+    <p>Available free space for DVDs is {{dvdFreeSpace}} Items</p>
+  </div>
+
 
   <div>
     <div *ngIf="options;then bookTemplate; else dvdTemplate">

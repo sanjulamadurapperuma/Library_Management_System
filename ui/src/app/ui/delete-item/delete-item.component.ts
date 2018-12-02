@@ -9,8 +9,13 @@ import {DeleteItemService} from "./delete-item.service";
 export class DeleteItemComponent implements OnInit {
   successMsg: string = null;
   isSuccess: boolean;
+  bookFreeSpace: string;
+  dvdFreeSpace: string;
 
-  constructor(private _deleteItemService: DeleteItemService) { }
+  constructor(private _deleteItemService: DeleteItemService) {
+    this.getFreeSpaceBook();
+    this.getFreeSpaceDVD();
+  }
 
   ngOnInit() {
   }
@@ -27,6 +32,24 @@ export class DeleteItemComponent implements OnInit {
           this.isSuccess = true;
           form.resetForm();
         }
+      },
+      error => console.log('Error', error)
+    );
+  }
+
+  getFreeSpaceBook() {
+    this._deleteItemService.getFreeSpaceBook().subscribe(
+      data => {
+        this.bookFreeSpace = data.toString();
+      },
+      error => console.log('Error', error)
+    );
+  }
+
+  getFreeSpaceDVD() {
+    this._deleteItemService.getFreeSpaceDVD().subscribe(
+      data => {
+        this.dvdFreeSpace = data.toString();
       },
       error => console.log('Error', error)
     );
