@@ -37,3 +37,4 @@ POST    /api/borrowLibraryItem      controllers.HomeController.borrowLibraryItem
 
 # Delete Library Item
 DELETE  /api/deleteLibraryItem/:isbn      controllers.HomeController.deleteLibraryItem(isbn: String)
+DELETE  /api/returnLibraryItem/:isbn      controllers.HomeController.returnLibraryItem(isbn: String)

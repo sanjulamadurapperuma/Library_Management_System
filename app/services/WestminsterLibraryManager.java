@@ -84,6 +84,15 @@ public class WestminsterLibraryManager implements LibraryManager {
     }
 
     @Override
+    public String returnLibraryItem(int isbn) {
+        LibraryItemModel itemModel = LibraryItemModel.find.byId(isbn);
+        if (itemModel != null) {
+            LibraryItemModel.find.ref(isbn).delete();
+        }
+        return "Item returned successfully";
+    }
+
+    @Override
     public List<ItemToDisplay> getAllLibraryItems() {
         List<LibraryItemModel> items = Ebean.find(LibraryItemModel.class).findList();
         List<ItemToDisplay> itemList = new ArrayList<>();

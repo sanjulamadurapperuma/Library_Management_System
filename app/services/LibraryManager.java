@@ -17,6 +17,7 @@ public interface LibraryManager {
     int getFreeSpaceBook();
     int getFreeSpaceDVD();
     String borrowLibraryItem(Borrow borrow);
+    String returnLibraryItem(int isbn);
 
     List<Book> getAllBooks();
 }
