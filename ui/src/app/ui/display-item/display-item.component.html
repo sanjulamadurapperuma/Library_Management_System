@@ -1,3 +1,27 @@
-<p>
-  display-item works!
-</p>
+<div class="jumbotron">
+<h2>Display items</h2><br/>
+<div>
+  <label for="view">View Books :</label>
+  <select id="view" ng-model="view">
+    <option value="">All Books</option>
+    <option value="Available">Available Books</option>
+  </select>
+</div><br/>
+<div>
+  <label for="search">Search books: </label><input id="search" type="text" ng-model="bookSrch" />
+</div><br/>
+
+<table border="1" width="75%" >
+  <tr>
+    <th>ISBN</th>
+    <th>Type</th>
+    <th>Title</th>
+  </tr>
+  <!--<tr highlight ng-repeat="i in books | filter:bookSrch" *ngFor="let item of libraryItem; let i = index">-->
+    <!--<td>{{i.isbn}}</td>-->
+    <!--<td>{{i.itemType}}</td>-->
+    <!--<td>{{i.Title}}</td>-->
+  <!--</tr>-->
+
+</table>
+</div>
