@@ -21,9 +21,14 @@
     <span ng-bind="ISBN"></span>
     ISBN is required
   </div>
-
-  <label for="FreeSpaces"><b>Free Spaces remaining : </b></label>
-  <label ng-model="FreeSpaces" id="FreeSpaces"></label><br>
+<br/>
+    <div>
+      <p>Available free space :</p>
+      <ul>
+        <li>Books - {{bookFreeSpace}}</li>
+        <li>DVDs - {{dvdFreeSpace}}</li>
+      </ul>
+    </div>
   <br>
   <button type="reset" name="clear" class="btn btn-primary" id="clearbtn">Clear</button>
   <button type="submit" name="submit" class="btn btn-primary" id="submitbtn" [disabled]="frm.invalid">Submit</button>
