@@ -1,5 +1,6 @@
 package services;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import dto.Book;
 import dto.DVD;
 import dto.Reader;
@@ -54,6 +55,17 @@ public class WestminsterLibraryManager implements LibraryManager {
         } catch (ParseException e) {
             System.out.println("Error occurred while parsing Date");
         }
+    }
+
+    @Override
+    public String deleteLibraryItem(int isbn) {
+        String itemType = null;
+        LibraryItemModel itemModel = LibraryItemModel.find.byId(isbn);
+        if (itemModel != null) {
+            itemType = itemModel.getItemType();
+            LibraryItemModel.find.ref(isbn).delete();
+        }
+        return itemType;
     }
 
     @Override

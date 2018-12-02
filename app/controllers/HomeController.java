@@ -65,4 +65,13 @@ public class HomeController extends Controller {
         libraryManager.addDVD(dvd);
         return ok(Json.toJson(dvd)).as("application/json");
     }
+
+    public Result deleteLibraryItem(String isbn){
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        String itemType = libraryManager.deleteLibraryItem(Integer.parseInt(isbn));
+        if (itemType == null) {
+            return ok(Json.toJson("This item does not exist in the library")).as("application/json");
+        }
+        return ok(Json.toJson(itemType)).as("application/json");
+    }
 }

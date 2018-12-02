@@ -1,17 +1,24 @@
 <div class="jumbotron">
   <h2>Delete an Item</h2>
-<form #frm="ngForm" (ngSubmit)="deleteItem(frm)"
-      ng-controller="validateCtrl" name="delete-item-form" form.valid novalidate>
-  <!--Label-->
-  <label for="ISBN"><b>ISBN : </b></label>
-  <input type="number" placeholder="Enter ISBN" class="form-control"
-         name="ISBN" id="ISBN" required
-         ngModel #isbnNumber="ngModel" pattern="[0-9]*">
+<form #frm="ngForm" (ngSubmit)="deleteItem(frm)" name="delete-item-form" form.valid novalidate>
+  <div class="alert alert-success" *ngIf="isSuccess">
+    {{successMsg}}
+  </div>
+  <div class="alert alert-warning" *ngIf="!isSuccess && isSuccess != null">
+    {{successMsg}}
+  </div>
+  <div class="form-group">
+  <div>
+    <label for="ISBNBook">ISBN</label>
+    <input name="ISBN" class="form-control" placeholder="Enter Book ISBN" type="number"
+           id="ISBNBook" required ngModel #isbnNumber="ngModel"
+           pattern="[0-9]*">
+  </div>
 
-  <!--Validation-->
+  <!--Validation for ISBN-->
   <div *ngIf="isbnNumber?.touched && isbnNumber?.errors?.required"
        class="alert-incorrect-value">
-    <span ng-bind="ISBN"></span>
+    <span ng-bind="ISBNBook"></span>
     ISBN is required
   </div>
 
@@ -20,6 +27,6 @@
   <br>
   <button type="reset" name="clear" class="btn btn-primary" id="clearbtn">Clear</button>
   <button type="submit" name="submit" class="btn btn-primary" id="submitbtn" [disabled]="frm.invalid">Submit</button>
-
+  </div>
 </form>
 </div>

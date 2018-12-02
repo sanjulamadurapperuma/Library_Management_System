@@ -1,16 +1,4 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
-import {
-  AbstractControl,
-  AbstractFormGroupDirective,
-  Form,
-  FormControl,
-  FormGroup,
-  NgControl,
-  NgModel,
-  NgModelGroup, ValidationErrors
-} from "@angular/forms";
-import {FormHooks} from "@angular/forms/src/model";
-import {Observable} from "rxjs";
 import {DeleteItemService} from "./delete-item.service";
 
 @Component({
@@ -21,7 +9,6 @@ import {DeleteItemService} from "./delete-item.service";
 export class DeleteItemComponent implements OnInit {
   successMsg: string = null;
   isSuccess: boolean;
-  item: any;
 
   constructor(private _deleteItemService: DeleteItemService) { }
 
@@ -29,6 +16,19 @@ export class DeleteItemComponent implements OnInit {
   }
 
   deleteItem(form){
-
+    this._deleteItemService.deleteItem(form.value["ISBN"]).subscribe(
+      data => {
+        if ("Book" != data.toString() || "DVD" != data.toString() ) {
+          this.successMsg = data.toString();
+          this.isSuccess = false;
+          form.resetForm();
+        } else {
+          this.successMsg = "Successfully deleted a " + data + " item";
+          this.isSuccess = true;
+          form.resetForm();
+        }
+      },
+      error => console.log('Error', error)
+    );
   }
 }

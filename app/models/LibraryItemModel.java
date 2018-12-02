@@ -1,5 +1,8 @@
 package models;
 
+import io.ebean.Finder;
+import io.ebean.Model;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,7 +11,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "libraryitems")
-public class LibraryItemModel {
+public class LibraryItemModel extends Model {
 
     /*Start of LibraryItem attributes*/
     @Id
@@ -58,6 +61,8 @@ public class LibraryItemModel {
     //LibraryItem type check
     @Column(name = "type")
     private String itemType;
+
+    public static Finder<Integer, LibraryItemModel> find = new Finder<>(LibraryItemModel.class);
 
     public int getIsbn() {
         return isbn;

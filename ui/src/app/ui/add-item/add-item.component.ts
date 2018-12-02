@@ -28,12 +28,13 @@ export class AddItemComponent implements OnInit {
       formBook.value["PublicationDate"], formBook.value["AuthorName"], formBook.value["PublisherName"],
       formBook.value["NumberOfPages"]);
     this._addItemService.addBook(this.book).subscribe(
-      data => console.log('Success', data),
+      data => {
+        this.successMsg = "Successfully added the Book";
+        this.isSuccess = true;
+        formBook.resetForm();
+      },
       error => console.log('Error', error)
     );
-    this.successMsg = "Successfully added the Book";
-    this.isSuccess = true;
-    formBook.resetForm();
   }
 
   addItemDVD(formDVD) {
@@ -41,11 +42,12 @@ export class AddItemComponent implements OnInit {
       formDVD.value["PublicationDate"], formDVD.value["Language"], formDVD.value["Subtitle"],
       formDVD.value["ProducerName"], formDVD.value["ActorName"]);
     this._addItemService.addDVD(this.dvd).subscribe(
-      data => console.log('Success', data),
+      data => {
+        this.successMsg = "Successfully added the DVD";
+        this.isSuccess = true;
+        formDVD.resetForm();
+      },
       error => console.log('Error', error)
     );
-    this.successMsg = "Successfully added the DVD";
-    this.isSuccess = true;
-    formDVD.resetForm();
   }
 }
