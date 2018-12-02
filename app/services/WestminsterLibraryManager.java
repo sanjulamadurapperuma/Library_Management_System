@@ -1,8 +1,8 @@
 package services;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import dto.Book;
 import dto.DVD;
+import dto.ItemToDisplay;
 import dto.Reader;
 import io.ebean.Ebean;
 import models.LibraryItemModel;
@@ -66,6 +66,38 @@ public class WestminsterLibraryManager implements LibraryManager {
             LibraryItemModel.find.ref(isbn).delete();
         }
         return itemType;
+    }
+
+    @Override
+    public List<ItemToDisplay> getAllLibraryItems() {
+        List<LibraryItemModel> items = Ebean.find(LibraryItemModel.class).findList();
+        List<ItemToDisplay> itemList = new ArrayList<>();
+        for (LibraryItemModel item : items) {
+            ItemToDisplay itemDisplay = getItemToDisplayDTOByModel(item);
+            itemList.add(itemDisplay);
+        }
+        return itemList;
+    }
+
+    private ItemToDisplay getItemToDisplayDTOByModel(LibraryItemModel itemModel) {
+        ItemToDisplay item = new ItemToDisplay();
+        item.setItemISBN(itemModel.getIsbn());
+        item.setItemTitle(itemModel.getTitle());
+        item.setItemType(itemModel.getItemType());
+        return item;
+    }
+
+    @Override
+    public ItemToDisplay searchLibraryItem(int isbn) {
+        ItemToDisplay item = null;
+        LibraryItemModel itemModel = LibraryItemModel.find.byId(isbn);
+        if (itemModel != null) {
+            item = new ItemToDisplay();
+            item.setItemISBN(isbn);
+            item.setItemTitle(itemModel.getTitle());
+            item.setItemType(itemModel.getItemType());
+        }
+        return item;
     }
 
     @Override

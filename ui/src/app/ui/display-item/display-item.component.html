@@ -1,27 +1,50 @@
 <div class="jumbotron">
 <h2>Display items</h2><br/>
 <div>
-  <label for="view">View Books :</label>
-  <select id="view" ng-model="view">
-    <option value="">All Books</option>
-    <option value="Available">Available Books</option>
-  </select>
-</div><br/>
-<div>
-  <label for="search">Search books: </label><input id="search" type="text" ng-model="bookSrch" />
-</div><br/>
-
-<table border="1" width="75%" >
-  <tr>
-    <th>ISBN</th>
-    <th>Type</th>
-    <th>Title</th>
-  </tr>
-  <!--<tr highlight ng-repeat="i in books | filter:bookSrch" *ngFor="let item of libraryItem; let i = index">-->
-    <!--<td>{{i.isbn}}</td>-->
-    <!--<td>{{i.itemType}}</td>-->
-    <!--<td>{{i.Title}}</td>-->
-  <!--</tr>-->
-
-</table>
+  <form #formSearch="ngForm" (ngSubmit)="searchItem(formSearch)" name="display-item-form-search" form.valid novalidate>
+  <label for="search">Search Library Item: </label><input id="search" type="text" ng-model="bookSrch" name="ISBN" ngModel/>
+  <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  <br>
+  <div *ngIf="searchLibItem != null">
+    <table border="1" width="75%">
+      <thead>
+      <tr>
+        <th>ISBN</th>
+        <th>Title</th>
+        <th>Type</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{searchLibItem.itemISBN}}</td>
+        <td>{{searchLibItem.itemTitle}}</td>
+        <td>{{searchLibItem.itemType}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <br/>
+    <hr/>
+  </div>
+  <div class="alert alert-warning" *ngIf="!itemAvailable && itemAvailable != null">
+    {{errorMsg}}
+  </div>
+</div>
+  <h3>All Items</h3>
+  <table border="1" width="75%">
+    <thead>
+    <tr>
+      <th>ISBN</th>
+      <th>Title</th>
+      <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items">
+      <td>{{item.itemISBN}}</td>
+      <td>{{item.itemTitle}}</td>
+      <td>{{item.itemType}}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>

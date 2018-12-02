@@ -3,9 +3,12 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import dto.Book;
 import dto.DVD;
+import dto.ItemToDisplay;
 import play.libs.Json;
 import play.mvc.*;
 import services.WestminsterLibraryManager;
+
+import java.util.List;
 
 class AppSummary {
     private String content;
@@ -73,5 +76,21 @@ public class HomeController extends Controller {
             return ok(Json.toJson("This item does not exist in the library")).as("application/json");
         }
         return ok(Json.toJson(itemType)).as("application/json");
+    }
+
+    public Result displayItems() {
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        List<ItemToDisplay> items = libraryManager.getAllLibraryItems();
+        JsonNode jsonNode = Json.toJson(items);
+        return ok(jsonNode).as("application/json");
+    }
+
+    public Result searchItem(String isbn) {
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        ItemToDisplay item = libraryManager.searchLibraryItem(Integer.parseInt(isbn));
+        if (item == null) {
+            return ok(Json.toJson("notAvailable")).as("application/json");
+        }
+        return ok(Json.toJson(item)).as("application/json");
     }
 }

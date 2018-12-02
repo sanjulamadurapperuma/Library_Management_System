@@ -5,8 +5,14 @@
 # Serve index page from public directory
 GET     /                           controllers.FrontendController.index()
 
+# Display Library Items
+GET     /api/display                controllers.HomeController.displayItems()
+
 # An example route (Prefix all API routes with apiPrefix defined in application.conf)
 GET     /api/summary                controllers.HomeController.appSummary
+
+# Search Item
+GET     /api/searchItem/:isbn       controllers.HomeController.searchItem(isbn: String)
 
 # Serve static assets under public directory
 GET     /*file                      controllers.FrontendController.assetOrDefault(file)
@@ -18,4 +24,5 @@ POST    /api/postTest               controllers.HomeController.postTest()
 POST    /api/addBook                controllers.HomeController.addBook
 POST    /api/addDVD                 controllers.HomeController.addDVD
 
+# Delete Library Item
 DELETE  /api/deleteLibraryItem/:isbn      controllers.HomeController.deleteLibraryItem(isbn: String)
