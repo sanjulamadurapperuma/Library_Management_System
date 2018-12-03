@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./generate-report.component.css']
 })
 export class GenerateReportComponent implements OnInit {
-  group: any;
+  groups: any;
 
   constructor() { }
 

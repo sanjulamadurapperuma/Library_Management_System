@@ -35,6 +35,7 @@ create table libraryitems (
   producer                      varchar(255),
   actors                        varchar(255),
   type                          varchar(255),
+  borrowedstatus                varchar(255),
   constraint pk_libraryitems primary key (isbn)
 );
 

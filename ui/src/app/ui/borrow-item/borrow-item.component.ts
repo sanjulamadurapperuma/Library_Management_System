@@ -1,6 +1,4 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
-import {Book} from "../../book";
-import {DVD} from "../../dvd";
 import {BorrowItemService} from "./borrow-item.service";
 import {Borrow} from "../../borrow";
 

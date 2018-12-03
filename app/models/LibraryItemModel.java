@@ -62,6 +62,9 @@ public class LibraryItemModel extends Model {
     @Column(name = "type")
     private String itemType;
 
+    @Column(name = "borrowedStatus")
+    private String borrowedStatus;
+
     public static Finder<Integer, LibraryItemModel> find = new Finder<>(LibraryItemModel.class);
 
     public int getIsbn() {
@@ -158,5 +161,13 @@ public class LibraryItemModel extends Model {
 
     public void setItemType(String itemType) {
         this.itemType = itemType;
+    }
+
+    public String getBorrowedStatus() {
+        return borrowedStatus;
+    }
+
+    public void setBorrowedStatus(String borrowedStatus) {
+        this.borrowedStatus = borrowedStatus;
     }
 }

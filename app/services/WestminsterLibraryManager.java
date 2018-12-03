@@ -27,6 +27,7 @@ public class WestminsterLibraryManager implements LibraryManager {
             bookModel.setPublisher(book.getPublisher());
             bookModel.setNumberOfPages(book.getNumberOfPages());
             bookModel.setItemType("Book");
+            bookModel.setBorrowedStatus("Available");
             Ebean.save(bookModel);
         } catch (ParseException e) {
             System.out.println("Error occurred while parsing Date");
@@ -49,6 +50,7 @@ public class WestminsterLibraryManager implements LibraryManager {
             dvdModel.setProducer(dvd.getProducer());
             dvdModel.setActors(dvd.getActors());
             dvdModel.setItemType("DVD");
+            dvdModel.setBorrowedStatus("Available");
             Ebean.save(dvdModel);
         } catch (ParseException e) {
             System.out.println("Error occurred while parsing Date");
@@ -68,17 +70,20 @@ public class WestminsterLibraryManager implements LibraryManager {
 
     @Override
     public String borrowLibraryItem(Borrow borrow){
-        BorrowModel itemModel = BorrowModel.find.byId(borrow.getIsbn());
-        if(itemModel != null){
+        LibraryItemModel itemModel = LibraryItemModel.find.byId(borrow.getIsbn());
+        BorrowModel borrowModel = BorrowModel.find.byId(borrow.getIsbn());
+        if(borrowModel != null & itemModel != null){
             return "alreadyBorrowed";
         } else {
-            BorrowModel borrowModel = new BorrowModel();
-            borrowModel.setIsbn(borrow.getIsbn());
+            BorrowModel borrowModel1 = new BorrowModel();
+            borrowModel1.setIsbn(borrow.getIsbn());
             System.out.println("readerid " + borrow.getReaderId());
-            borrowModel.setReaderId(borrow.getReaderId());
+            borrowModel1.setReaderId(borrow.getReaderId());
             DateTime date = new DateTime();
-            borrowModel.setDateTimeBorrowed(date.getTime());
-            Ebean.save(borrowModel);
+            borrowModel1.setDateTimeBorrowed(date.getTime());
+            itemModel.setBorrowedStatus("Borrowed");
+            itemModel.update();
+            Ebean.save(borrowModel1);
             return "available";
         }
     }
@@ -86,8 +91,10 @@ public class WestminsterLibraryManager implements LibraryManager {
     @Override
     public String returnLibraryItem(int isbn) {
         LibraryItemModel itemModel = LibraryItemModel.find.byId(isbn);
-        if (itemModel != null) {
-            LibraryItemModel.find.ref(isbn).delete();
+        BorrowModel borrowModel = BorrowModel.find.byId(isbn);
+        if (itemModel != null && borrowModel != null) {
+
+            BorrowModel.find.ref(isbn).delete();
         }
         return "Item returned successfully";
     }
