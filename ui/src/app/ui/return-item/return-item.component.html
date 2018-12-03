@@ -1,6 +1,12 @@
 <div class="jumbotron">
   <h2>Return an Item</h2>
   <form #frm="ngForm" (ngSubmit)="returnItem(frm)" name="return-item-form" form.valid novalidate>
+    <div class="alert alert-success" *ngIf="isSuccess">
+      {{successMsg}}
+    </div>
+    <div class="alert alert-warning" *ngIf="!isSuccess && isSuccess != null">
+      {{errMsg}}
+    </div>
     <!--Label for ISBN-->
     <div>
       <label for="ISBN">ISBN</label>

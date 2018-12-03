@@ -83,7 +83,7 @@ public class WestminsterLibraryManager implements LibraryManager {
             DateTime date = new DateTime();
             borrowModel1.setDateTimeBorrowed(date.getTime());
             itemModel.setBorrowedStatus("Borrowed");
-            itemModel.update();
+            Ebean.update(itemModel);
             Ebean.save(borrowModel1);
 
         }
@@ -94,11 +94,16 @@ public class WestminsterLibraryManager implements LibraryManager {
     public String returnLibraryItem(int isbn) {
         LibraryItemModel itemModel = LibraryItemModel.find.byId(isbn);
         BorrowModel borrowModel = BorrowModel.find.byId(isbn);
-        if (itemModel != null && borrowModel != null) {
-
-            BorrowModel.find.ref(isbn).delete();
+        if (itemModel != null) {
+            if (borrowModel != null) {
+                BorrowModel.find.ref(isbn).delete();
+                itemModel.setBorrowedStatus("Available");
+                Ebean.update(itemModel);
+            }
+        } else {
+            return "notAvailable";
         }
-        return "Item returned successfully";
+        return "available";
     }
 
     @Override
