@@ -68,13 +68,14 @@ public class WestminsterLibraryManager implements LibraryManager {
         return itemType;
     }
 
+
     @Override
     public String borrowLibraryItem(Borrow borrow){
         LibraryItemModel itemModel = LibraryItemModel.find.byId(borrow.getIsbn());
         BorrowModel borrowModel = BorrowModel.find.byId(borrow.getIsbn());
-        if(borrowModel != null & itemModel != null){
+        if(borrowModel != null ){
             return "alreadyBorrowed";
-        } else {
+        } else if (itemModel != null){
             BorrowModel borrowModel1 = new BorrowModel();
             borrowModel1.setIsbn(borrow.getIsbn());
             System.out.println("readerid " + borrow.getReaderId());
@@ -84,8 +85,9 @@ public class WestminsterLibraryManager implements LibraryManager {
             itemModel.setBorrowedStatus("Borrowed");
             itemModel.update();
             Ebean.save(borrowModel1);
-            return "available";
+
         }
+        return "available";
     }
 
     @Override
