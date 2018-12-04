@@ -4,8 +4,36 @@
     <div class="alert alert-success" *ngIf="isSuccess">
       {{reserveMsg}}
     </div>
+    <div>
+      <label for="ISBN">ISBN</label>
+      <input name="ISBN" class="form-control" placeholder="Enter ISBN" type="number"
+             id="ISBN" required ngModel #isbnNumber="ngModel"
+             pattern="[0-9]*">
+    </div>
+
+    <!--Validation for ISBN-->
+    <div *ngIf="isbnNumber?.touched && isbnNumber?.errors?.required"
+         class="alert-incorrect-value">
+      <span ng-bind="ISBN"></span>
+      ISBN is required
+    </div>
+
+    <!--Label for Reader ID-->
+    <label for="ReaderId">Reader ID : </label>
+    <input type="text" class="form-control" placeholder="Enter Reader ID"
+           id="ReaderId" name="ReaderId" required
+           ngModel #readerId="ngModel" pattern="^[a-zA-Z0-9_]*$">
+
+    <!--Validation for Reader ID-->
+    <div *ngIf="readerId?.touched && readerId?.errors?.required"
+         class="alert-incorrect-value">
+      <span ng-bind="ReaderId"></span>
+      Reader ID is required
+    </div>
+    <br>
+    <button type="reset" name="clear" class="btn btn-primary" id="clearbtn">Clear Form</button>
     <button type="submit" name="reserve"
             class="btn btn-primary"
-            id="reservebtn" [disabled]="formReserve.invalid">Ok</button>
+            id="submitbtn" [disabled]="formReserve.invalid">Ok</button>
   </form>
 </div>
