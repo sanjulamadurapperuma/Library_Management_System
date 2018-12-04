@@ -51,8 +51,6 @@ create table reserveitem (
   reserveid                     integer auto_increment not null,
   isbn                          integer not null,
   readerid                      integer not null,
-  nooftimesborrowed             integer not null,
-  avgborrowtime                 integer not null,
   constraint pk_reserveitem primary key (reserveid)
 );
 

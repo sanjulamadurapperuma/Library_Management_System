@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {BorrowItemService} from "../borrow-item/borrow-item.service";
 import {ReserveItemService} from "./reserve-item.service";
+import {Reserve} from "../../reserve";
 
 @Component({
   selector: 'app-reserve-item',
@@ -8,6 +8,8 @@ import {ReserveItemService} from "./reserve-item.service";
   styleUrls: ['./reserve-item.component.css']
 })
 export class ReserveItemComponent implements OnInit {
+  reservedItem: any;
+  successMsg: string;
   isSuccess: boolean;
   reserveMsg: string = null;
 
@@ -16,8 +18,16 @@ export class ReserveItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  reserveItem(frm){
-
+  reserveItem(frm) {
+    this.reservedItem = new Reserve(frm.value["ISBN"], frm.value["ReaderId"]);
+    this._reserveItemService.reserveItem(this.reservedItem).subscribe(
+      data => {
+        this.successMsg = "Successfully reserved the item";
+        this.isSuccess = true;
+        frm.resetForm();
+      },
+      error => console.log('Error', error)
+    );
   }
 
 }

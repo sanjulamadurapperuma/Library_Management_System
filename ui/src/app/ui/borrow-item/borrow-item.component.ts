@@ -43,8 +43,4 @@ export class BorrowItemComponent implements OnInit {
       error => console.log('Error', error)
     );
   }
-
-  reserveItem(formReserve){
-
-  }
 }
