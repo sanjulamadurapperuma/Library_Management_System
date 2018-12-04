@@ -334,4 +334,8 @@ public class WestminsterLibraryManager implements LibraryManager {
 
         return reader;
     }
+
+    public String reserveLibraryItem(ReserveItem reserve) {
+        return null;
+    }
 }

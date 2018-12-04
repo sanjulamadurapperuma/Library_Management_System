@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {BorrowItemService} from "../borrow-item/borrow-item.service";
 import {ReserveItemService} from "./reserve-item.service";
 
 @Component({

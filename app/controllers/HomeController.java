@@ -1,10 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import dto.Book;
-import dto.Borrow;
-import dto.DVD;
-import dto.ItemToDisplay;
+import dto.*;
 import play.libs.Json;
 import play.mvc.*;
 import services.WestminsterLibraryManager;
@@ -137,5 +134,15 @@ public class HomeController extends Controller {
             return ok(Json.toJson("notAvailable")).as("application/json");
         }
         return ok(Json.toJson(item)).as("application/json");
+    }
+
+    public Result reserveLibraryItem(){
+        JsonNode json = request().body().asJson();
+        ReserveItem reserve = new ReserveItem();
+        reserve.setIsbn(json.get("itemISBN").asInt());
+        reserve.setReaderId(json.get("readerId").asInt());
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        String status = libraryManager.reserveLibraryItem(reserve);
+        return ok(Json.toJson(status)).as("application/json");
     }
 }
