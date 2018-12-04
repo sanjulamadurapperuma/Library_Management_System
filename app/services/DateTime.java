@@ -1,7 +1,10 @@
 package services;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DateTime {
     private int day;
@@ -10,6 +13,14 @@ public class DateTime {
 
     private int hour;
     private int minute;
+
+    private int yearDiff;
+    private int monthDiff;
+    private int dayDiff;
+    private int hourDiff;
+    private int minuteDiff;
+
+
 
     public DateTime() {
     }
@@ -22,11 +33,16 @@ public class DateTime {
 
     public DateTime(String date){
         String dateObj = date;
-        String[] dateArray = dateObj.split("/");
+        String[] dateArray = dateObj.split("-");
         if (dateArray.length == 3) {
             this.day = Integer.parseInt(dateArray[0]);
             this.month = Integer.parseInt(dateArray[1]);
             this.year = Integer.parseInt(dateArray[2]);
+        }
+        String[] timeArray = date.split(":");
+        if (timeArray.length == 2){
+            this.hour = Integer.parseInt(timeArray[0]);
+            this.minute = Integer.parseInt(timeArray[1]);
         }
     }
 
@@ -132,6 +148,43 @@ public class DateTime {
         Date resultdate = new Date(currentDate);
         return sdf1.format(resultdate);
     }
+
+    public Map<String, Long> getDateTimeDiff(String dateTime) {
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String current = sdf2.format(System.currentTimeMillis());
+
+        Date currentDateTime = null;
+        Date dateTimeBorrowed = null;
+        long difference = 0;
+        try{
+            currentDateTime = sdf2.parse(current);
+            dateTimeBorrowed = sdf2.parse(dateTime);
+            difference = currentDateTime.getTime() - dateTimeBorrowed.getTime();
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        long secInMilli = 1000;
+        long minInMilli = secInMilli * 60;
+        long hourInMilli = minInMilli * 60;
+        long dayInMilli = hourInMilli * 24;
+
+        long elapsedDays = difference / dayInMilli;
+        difference = difference % dayInMilli;
+
+        long elapsedHours = difference / hourInMilli;
+        difference = difference % hourInMilli;
+
+        long elapsedMinutes = difference / minInMilli;
+
+        Map<String, Long> map = new HashMap<>();
+        map.put("elapsedDays", elapsedDays);
+        map.put("elapsedHours", elapsedHours);
+        map.put("elapsedMinutes", elapsedMinutes);
+        return map;
+    }
+
+
 
     @Override
     public String toString() {

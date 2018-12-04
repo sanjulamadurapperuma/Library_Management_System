@@ -1,9 +1,15 @@
 <div class="jumbotron">
+
 <h2>Display items</h2><br/>
 <div>
-  <form #formSearch="ngForm" (ngSubmit)="searchItem(formSearch)" name="display-item-form-search" form.valid novalidate>
-  <label for="search">Search Library Item: </label><input id="search" type="text" ng-model="bookSrch" name="ISBN" ngModel/>
+  <form #formSearch="ngForm" (ngSubmit)="searchItem(formSearch)"
+        name="display-item-form-search" form.valid novalidate>
+
+  <label for="search">Search Library Item: </label><input
+    id="search" type="text" ng-model="bookSrch" name="ISBN" ngModel/>
+
   <button type="submit" class="btn btn-primary">Search</button>
+
   </form>
   <br>
   <div *ngIf="searchLibItem != null">
@@ -20,13 +26,15 @@
         <td>{{searchLibItem.itemISBN}}</td>
         <td>{{searchLibItem.itemTitle}}</td>
         <td>{{searchLibItem.itemType}}</td>
+        <td>{{searchLibItem.status}}</td>
       </tr>
       </tbody>
     </table>
     <br/>
     <hr/>
   </div>
-  <div class="alert alert-warning" *ngIf="!itemAvailable && itemAvailable != null">
+  <div class="alert alert-warning"
+       *ngIf="!itemAvailable && itemAvailable != null">
     {{errorMsg}}
   </div>
 </div>
@@ -37,6 +45,7 @@
       <th>ISBN</th>
       <th>Title</th>
       <th>Type</th>
+      <th>Status</th>
     </tr>
     </thead>
     <tbody>
@@ -44,6 +53,7 @@
       <td>{{item.itemISBN}}</td>
       <td>{{item.itemTitle}}</td>
       <td>{{item.itemType}}</td>
+      <td>{{item.status}}</td>
     </tr>
     </tbody>
   </table>

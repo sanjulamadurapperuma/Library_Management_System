@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class WestminsterLibraryManager implements LibraryManager {
     @Override
@@ -73,19 +74,39 @@ public class WestminsterLibraryManager implements LibraryManager {
     public String borrowLibraryItem(Borrow borrow){
         LibraryItemModel itemModel = LibraryItemModel.find.byId(borrow.getIsbn());
         BorrowModel borrowModel = BorrowModel.find.byId(borrow.getIsbn());
-        if(borrowModel != null ){
-            return "alreadyBorrowed";
-        } else if (itemModel != null){
-            BorrowModel borrowModel1 = new BorrowModel();
-            borrowModel1.setIsbn(borrow.getIsbn());
-            System.out.println("readerid " + borrow.getReaderId());
-            borrowModel1.setReaderId(borrow.getReaderId());
-            DateTime date = new DateTime();
-            borrowModel1.setDateTimeBorrowed(date.getTime());
-            itemModel.setBorrowedStatus("Borrowed");
-            Ebean.update(itemModel);
-            Ebean.save(borrowModel1);
-
+        if (itemModel != null) {
+            if (borrowModel != null) {
+                String dateBorrowed = borrowModel.getDateTimeBorrowed();
+                DateTime dateTime = new DateTime();
+                Map<String, Long> map = dateTime.getDateTimeDiff(dateBorrowed);
+                if (itemModel.getItemType().equals("Book")) {
+                    long maxDays = 7;
+                    long dayDiff = map.get("elapsedDays") - maxDays;
+                    if (dayDiff <= 0) {
+                        return "You can borrow the Book in " + Math.abs(dayDiff) + " more days.";
+                    } else {
+                        return "overdue";
+                    }
+                } else if (itemModel.getItemType().equals("DVD")) {
+                    long maxDays = 3;
+                    long dayDiff = map.get("elapsedDays") - maxDays;
+                    if (dayDiff <= 0) {
+                        return "You can borrow the DVD in " + Math.abs(dayDiff) + " more days.";
+                    } else {
+                        return "overdue";
+                    }
+                }
+                return "alreadyBorrowed";
+            } else {
+                BorrowModel borrowModel1 = new BorrowModel();
+                borrowModel1.setIsbn(borrow.getIsbn());
+                borrowModel1.setReaderId(borrow.getReaderId());
+                DateTime date = new DateTime();
+                borrowModel1.setDateTimeBorrowed(date.getTime());
+                itemModel.setBorrowedStatus("Borrowed");
+                Ebean.update(itemModel);
+                Ebean.save(borrowModel1);
+            }
         }
         return "available";
     }
@@ -94,17 +115,63 @@ public class WestminsterLibraryManager implements LibraryManager {
     public String returnLibraryItem(int isbn) {
         LibraryItemModel itemModel = LibraryItemModel.find.byId(isbn);
         BorrowModel borrowModel = BorrowModel.find.byId(isbn);
+        double overdueFee = 0;
+        long maxDays = 0;
         if (itemModel != null) {
             if (borrowModel != null) {
-                BorrowModel.find.ref(isbn).delete();
-                itemModel.setBorrowedStatus("Available");
-                Ebean.update(itemModel);
+                String dateBorrowed = borrowModel.getDateTimeBorrowed();
+                DateTime dateTime = new DateTime();
+                Map<String, Long> map = dateTime.getDateTimeDiff(dateBorrowed);
+                if (itemModel.getItemType().equals("Book")) {
+                    maxDays = 7;
+                } else {
+                    maxDays = 3;
+                }
+                long dayDiff = map.get("elapsedDays") - maxDays;
+                long hourDiff = map.get("elapsedHours");
+                if (dayDiff <= 3) {
+                    overdueFee = (dayDiff * 24 + hourDiff) * 0.2;
+                } else {
+                    long remainingTime = dayDiff - 3;
+                    overdueFee = (3 * 24 * 0.2) + ((remainingTime * 24)+ hourDiff) * 0.5;
+                }
+                if (overdueFee != 0) {
+                    BorrowModel.find.ref(isbn).delete();
+                    itemModel.setBorrowedStatus("Available");
+                    Ebean.update(itemModel);
+                    return "Please pay your overdue fee of £" + String.format("%.2f", overdueFee);
+                } else {
+                    BorrowModel.find.ref(isbn).delete();
+                    itemModel.setBorrowedStatus("Available");
+                    Ebean.update(itemModel);
+                }
             }
         } else {
             return "notAvailable";
         }
         return "available";
     }
+
+    @Override
+    public List<Borrow> getAllBorrowedItems() {
+        List<BorrowModel> items = Ebean.find(BorrowModel.class).findList();
+        List<Borrow> itemList = new ArrayList<>();
+        for (BorrowModel item : items) {
+            Borrow itemDisplay = getBorrowItemToDisplayDTOByModel(item);
+            itemList.add(itemDisplay);
+        }
+        return itemList;
+    }
+
+    private Borrow getBorrowItemToDisplayDTOByModel(BorrowModel itemModel) {
+        Borrow item = new Borrow();
+        item.setIsbn(itemModel.getIsbn());
+        item.setReaderId(itemModel.getReaderId());
+        item.setDateTimeBorrowed(itemModel.getDateTimeBorrowed());
+        item.setCalculatedFee(0);
+        return item;
+    }
+
 
     @Override
     public List<ItemToDisplay> getAllLibraryItems() {
@@ -122,6 +189,7 @@ public class WestminsterLibraryManager implements LibraryManager {
         item.setItemISBN(itemModel.getIsbn());
         item.setItemTitle(itemModel.getTitle());
         item.setItemType(itemModel.getItemType());
+        item.setStatus(itemModel.getBorrowedStatus());
         return item;
     }
 
@@ -134,6 +202,21 @@ public class WestminsterLibraryManager implements LibraryManager {
             item.setItemISBN(isbn);
             item.setItemTitle(itemModel.getTitle());
             item.setItemType(itemModel.getItemType());
+            item.setStatus(itemModel.getBorrowedStatus());
+        }
+        return item;
+    }
+
+    @Override
+    public Borrow searchBorrowItem(int isbn) {
+        Borrow item = null;
+        BorrowModel itemModel = BorrowModel.find.byId(isbn);
+        if (itemModel != null) {
+            item = new Borrow();
+            item.setIsbn(isbn);
+            item.setReaderId(itemModel.getReaderId());
+            item.setDateTimeBorrowed(itemModel.getDateTimeBorrowed());
+            item.setCalculatedFee(0);
         }
         return item;
     }

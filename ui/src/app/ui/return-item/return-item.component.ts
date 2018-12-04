@@ -12,6 +12,7 @@ import {ReturnItemService} from "./return-item.service";
 export class ReturnItemComponent implements OnInit {
   successMsg: string = null;
   errMsg: string = null;
+  feeMsg: string = null;
   isSuccess: boolean;
   item: any;
   book: Book;
@@ -30,10 +31,21 @@ export class ReturnItemComponent implements OnInit {
           this.isSuccess = true;
           frm.resetForm();
         } else if ("notAvailable" == data.toString()) {
-          this.errMsg = "The item is has not been borrowed or available";
+            this.errMsg = "The item has not been borrowed or is not available";
+            this.isSuccess = false;
+            frm.resetForm();
+        } else {
+          this.errMsg = data.toString();
           this.isSuccess = false;
           frm.resetForm();
         }
+      },
+      error => console.log('Error', error)
+    );
+
+    this._returnItemService.calculateFee(frm.value["ISBN"]).subscribe(
+      data => {
+          this.feeMsg = data.toString();
       },
       error => console.log('Error', error)
     );

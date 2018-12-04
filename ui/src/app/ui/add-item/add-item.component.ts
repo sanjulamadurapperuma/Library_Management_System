@@ -28,8 +28,11 @@ export class AddItemComponent implements OnInit {
   }
 
   addItemBook(formBook) {
-    this.book = new Book(formBook.value["ISBN"], formBook.value["Title"], formBook.value["Sector"],
-      formBook.value["PublicationDate"], formBook.value["AuthorName"], formBook.value["PublisherName"],
+    this.book = new Book(formBook.value["ISBN"],
+      formBook.value["Title"], formBook.value["Sector"],
+      formBook.value["PublicationDate"],
+      formBook.value["AuthorName"],
+      formBook.value["PublisherName"],
       formBook.value["NumberOfPages"]);
     this._addItemService.addBook(this.book).subscribe(
       data => {
@@ -43,9 +46,13 @@ export class AddItemComponent implements OnInit {
   }
 
   addItemDVD(formDVD) {
-    this.dvd = new DVD(formDVD.value["ISBN"], formDVD.value["Title"], formDVD.value["Sector"],
-      formDVD.value["PublicationDate"], formDVD.value["Language"], formDVD.value["Subtitle"],
-      formDVD.value["ProducerName"], formDVD.value["ActorName"]);
+    this.dvd = new DVD(formDVD.value["ISBN"],
+      formDVD.value["Title"], formDVD.value["Sector"],
+      formDVD.value["PublicationDate"],
+      formDVD.value["Language"],
+      formDVD.value["Subtitle"],
+      formDVD.value["ProducerName"],
+      formDVD.value["ActorName"]);
     this._addItemService.addDVD(this.dvd).subscribe(
       data => {
         this.getFreeSpaceDVD();

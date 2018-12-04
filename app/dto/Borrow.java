@@ -1,10 +1,10 @@
 package dto;
 
-import services.DateTime;
-
 public class Borrow {
     private int isbn;
     private int readerId;
+    private String dateTimeBorrowed;
+    private double calculatedFee;
 
     public int getIsbn() {
         return isbn;
@@ -20,5 +20,21 @@ public class Borrow {
 
     public void setReaderId(int readerId) {
         this.readerId = readerId;
+    }
+
+    public String getDateTimeBorrowed() {
+        return dateTimeBorrowed;
+    }
+
+    public void setDateTimeBorrowed(String dateTimeBorrowed) {
+        this.dateTimeBorrowed = dateTimeBorrowed;
+    }
+
+    public double getCalculatedFee() {
+        return calculatedFee;
+    }
+
+    public void setCalculatedFee(double calculatedFee) {
+        this.calculatedFee = calculatedFee;
     }
 }

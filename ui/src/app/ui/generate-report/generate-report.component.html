@@ -1,10 +1,68 @@
 <div class="jumbotron">
   <h2>Generate a report</h2>
-  <table border="1">
-    <ng-container *ngFor="let group of groups">
-      <tr><td><h2>{{group.name}}</h2></td></tr>
-      <tr *ngFor="let item of group.items"><td>{{item}}</td></tr>
-    </ng-container>
+  <!--<table border="1">-->
+    <!--<ng-container *ngFor="let group of groups">-->
+      <!--<tr><td><h2>{{group.name}}</h2></td></tr>-->
+      <!--<tr *ngFor="let item of group.items"><td>{{item}}</td></tr>-->
+    <!--</ng-container>-->
+  <!--</table>-->
+  <form #formSearch="ngForm" (ngSubmit)="searchBorrowedItem(formSearch)"
+        name="borrow-item-form-search" form.valid novalidate>
+
+    <label for="search">Search Borrowed Item: </label><input
+    id="search" type="text" ng-model="bookSrch" name="ISBN" ngModel/>
+
+    <button type="submit" class="btn btn-primary">Search</button>
+
+  </form>
+  <br>
+  <div *ngIf="searchLibItem != null">
+    <table border="1" width="75%">
+      <thead>
+      <tr>
+        <th>ISBN</th>
+        <th>Reader ID</th>
+        <th>Date/Time Borrowed</th>
+        <th>Overdue Fee</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{searchLibItem.isbn}}</td>
+        <td>{{searchLibItem.readerId}}</td>
+        <td>{{searchLibItem.dateTimeBorrowed}}</td>
+        <td>{{searchLibItem.calculatedFee}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <br/>
+    <hr/>
+  </div>
+
+  <div class="alert alert-warning"
+       *ngIf="!itemAvailable && itemAvailable != null">
+    {{errorMsg}}
+  </div>
+  <div>
+    <h3>All Borrowed Items</h3>
+  <table border="1" width="75%">
+    <thead>
+    <tr>
+      <th>ISBN</th>
+      <th>Reader ID</th>
+      <th>Date/Time Borrowed</th>
+      <th>Overdue Fee</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items">
+      <td>{{item.isbn}}</td>
+      <td>{{item.readerId}}</td>
+      <td>{{item.dateTimeBorrowed}}</td>
+      <td>{{item.calculatedFee}}</td>
+    </tr>
+    </tbody>
   </table>
-</div>
+  </div>
+  </div>
 

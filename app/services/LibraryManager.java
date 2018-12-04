@@ -11,8 +11,14 @@ public interface LibraryManager {
     void addBook(Book book);
     void addDVD(DVD dvd);
     String deleteLibraryItem(int isbn);
+
+    List<Borrow> getAllBorrowedItems();
+
     List<ItemToDisplay> getAllLibraryItems();
     ItemToDisplay searchLibraryItem(int isbn);
+
+    Borrow searchBorrowItem(int isbn);
+
     int getFreeSpaceBook();
     int getFreeSpaceDVD();
     String borrowLibraryItem(Borrow borrow);

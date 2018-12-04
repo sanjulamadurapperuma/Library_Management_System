@@ -14,11 +14,17 @@ GET     /api/summary                controllers.HomeController.appSummary
 # Search Item
 GET     /api/searchItem/:isbn       controllers.HomeController.searchItem(isbn: String)
 
+# Search Borrow Item
+GET    /api/searchBorrowItem/:isbn  controllers.HomeController.searchBorrowItem(isbn: String)
+
 # Get free space for book
 GET /api/freeSpace/book             controllers.HomeController.getFreeSpaceBook()
 
 # Get free space for dvd
 GET /api/freeSpace/dvd              controllers.HomeController.getFreeSpaceDVD()
+
+#Get the generated Report
+GET /api/generateReport             controllers.HomeController.generateReport()
 
 # Serve static assets under public directory
 GET     /*file                      controllers.FrontendController.assetOrDefault(file)

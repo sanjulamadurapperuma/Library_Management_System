@@ -28,8 +28,12 @@ export class BorrowItemComponent implements OnInit {
           this.successMsg = "Successfully borrowed the item";
           this.isSuccess = true;
           frm.resetForm();
-        } else if ("alreadyBorrowed" == data.toString()) {
-          this.errMsg = "The item is already borrowed by another person";
+        } else if ("alreadyBorrowed" == data.toString() || "overdue" == data.toString()) {
+            this.errMsg = "The item is already borrowed by another person";
+            this.isSuccess = false;
+            frm.resetForm();
+        } else {
+          this.errMsg = "This item is currently borrowed. " + data.toString();
           this.isSuccess = false;
           frm.resetForm();
         }

@@ -1,7 +1,5 @@
 package dto;
 
-import services.DateTime;
-
 public abstract class LibraryItem {
 
     private int itemISBN;

@@ -4,11 +4,13 @@ import {HttpClient} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
+
 export class DeleteItemService {
 
   _urlItem = '/api/deleteLibraryItem';
   _urlFreeSpaceBook = '/api/freeSpace/book';
   _urlFreeSpaceDVD = '/api/freeSpace/dvd';
+
   constructor(private _http: HttpClient) { }
 
   deleteItem(isbn: number) {

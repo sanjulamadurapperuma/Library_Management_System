@@ -4,6 +4,7 @@ public class ItemToDisplay {
     private int itemISBN;
     private String itemTitle;
     private String itemType;
+    private String status;
 
     public int getItemISBN() {
         return itemISBN;
@@ -27,5 +28,13 @@ public class ItemToDisplay {
 
     public void setItemType(String itemType) {
         this.itemType = itemType;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

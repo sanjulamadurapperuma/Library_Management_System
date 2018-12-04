@@ -10,7 +10,8 @@ public class Reader {
     public Reader() {
     }
 
-    public Reader(int readerID, String readerName, String mobileNumber, String email) {
+    public Reader(int readerID, String readerName,
+                  String mobileNumber, String email) {
         this.readerID = readerID;
         this.readerName = readerName;
         this.mobileNumber = mobileNumber;

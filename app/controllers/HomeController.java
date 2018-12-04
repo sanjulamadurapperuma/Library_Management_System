@@ -119,10 +119,23 @@ public class HomeController extends Controller {
 
     public Result returnLibraryItem(String isbn){
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
-        String itemType = libraryManager.returnLibraryItem(Integer.parseInt(isbn));
-        if (itemType == null) {
-            return ok(Json.toJson("This item has not been borrowed")).as("application/json");
+        String status = libraryManager.returnLibraryItem(Integer.parseInt(isbn));
+        return ok(Json.toJson(status)).as("application/json");
+    }
+
+    public Result generateReport(){
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        List<Borrow> items = libraryManager.getAllBorrowedItems();
+        JsonNode jsonNode = Json.toJson(items);
+        return ok(jsonNode).as("application/json");
+    }
+
+    public Result searchBorrowItem(String isbn) {
+        WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
+        Borrow item = libraryManager.searchBorrowItem(Integer.parseInt(isbn));
+        if (item == null) {
+            return ok(Json.toJson("notAvailable")).as("application/json");
         }
-        return ok(Json.toJson(itemType)).as("application/json");
+        return ok(Json.toJson(item)).as("application/json");
     }
 }

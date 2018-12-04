@@ -4,18 +4,17 @@ import {HttpClient} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
+export class GenerateReportService {
 
-export class DisplayItemService {
-
-  _urlDisplay = '/api/display';
-  _urlSearch = '/api/searchItem';
+  _urlGenerateRep = '/api/generateReport';
+  _urlSearch = '/api/searchBorrowItem';
   constructor(private _http: HttpClient) { }
 
-  returnDetails() {
-    return this._http.get(this._urlDisplay);
+  generateReport() {
+    return this._http.get(this._urlGenerateRep);
   }
 
-  searchItem(isbn: number) {
+  searchBorrowedItem(isbn: number) {
     return this._http.get(this._urlSearch + '/' + isbn);
   }
 }

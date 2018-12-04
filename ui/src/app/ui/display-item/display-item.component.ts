@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {DisplayItemService} from "./display-item.service";
-import {Book} from "../../book";
 
 @Component({
   selector: 'app-display-item',
