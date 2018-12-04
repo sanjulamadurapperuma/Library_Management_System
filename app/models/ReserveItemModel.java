@@ -17,12 +17,6 @@ public class ReserveItemModel {
     @Column(name = "readerId")
     private int readerId;
 
-    @Column(name = "noOfTimesBorrowed")
-    private int noOfTimesBorrowed;
-
-    @Column(name = "avgBorrowTime")
-    private int avgBorrowTime;
-
     public int getReserveId() {
         return reserveId;
     }//Notice that there is no setter method for
@@ -43,13 +37,5 @@ public class ReserveItemModel {
 
     public void setReaderId(int readerId) {
         this.readerId = readerId;
-    }
-
-    public int getNoOfTimesBorrowed() {
-        return noOfTimesBorrowed;
-    }
-
-    public void setNoOfTimesBorrowed(int noOfTimesBorrowed) {
-        this.noOfTimesBorrowed = noOfTimesBorrowed;
     }
 }
