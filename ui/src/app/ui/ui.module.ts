@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import { ReserveItemComponent } from './reserve-item/reserve-item.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,7 @@ import {FormsModule} from "@angular/forms";
     RouterModule,
     FormsModule
   ],
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, ReserveItemComponent],
   exports: [LayoutComponent]
 })
 export class UiModule { }

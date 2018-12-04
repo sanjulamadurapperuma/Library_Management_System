@@ -1,0 +1,11 @@
+<div class="jumbotron">
+  <form #formReserve="ngForm" (ngSubmit)="reserveItem(formReserve)"
+        name="reserve-item-form" form.valid novalidate>
+    <div class="alert alert-success" *ngIf="isSuccess">
+      {{reserveMsg}}
+    </div>
+    <button type="submit" name="reserve"
+            class="btn btn-primary"
+            id="reservebtn" [disabled]="formReserve.invalid">Ok</button>
+  </form>
+</div>
