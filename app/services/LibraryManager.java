@@ -1,9 +1,6 @@
 package services;
 
-import dto.Book;
-import dto.Borrow;
-import dto.DVD;
-import dto.ItemToDisplay;
+import dto.*;
 
 import java.util.List;
 
@@ -23,6 +20,7 @@ public interface LibraryManager {
     int getFreeSpaceDVD();
     String borrowLibraryItem(Borrow borrow);
     String returnLibraryItem(int isbn);
+    String reserveLibraryItem(ReserveItem reserveItem);
 
     List<Book> getAllBooks();
 }
