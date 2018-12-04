@@ -158,7 +158,9 @@ public class WestminsterLibraryManager implements LibraryManager {
         List<Borrow> itemList = new ArrayList<>();
         for (BorrowModel item : items) {
             Borrow itemDisplay = getBorrowItemToDisplayDTOByModel(item);
-            itemList.add(itemDisplay);
+            if (itemDisplay != null){
+                itemList.add(itemDisplay);
+            }
         }
         return itemList;
     }
@@ -168,7 +170,39 @@ public class WestminsterLibraryManager implements LibraryManager {
         item.setIsbn(itemModel.getIsbn());
         item.setReaderId(itemModel.getReaderId());
         item.setDateTimeBorrowed(itemModel.getDateTimeBorrowed());
-        item.setCalculatedFee(0);
+
+        LibraryItemModel libraryItemModel = LibraryItemModel.find.byId(itemModel.getIsbn());
+        double overdueFee = 0;
+        long maxDays = 0;
+        if (libraryItemModel != null) {
+                String dateBorrowed = itemModel.getDateTimeBorrowed();
+                DateTime dateTime = new DateTime();
+                Map<String, Long> map = dateTime.getDateTimeDiff(dateBorrowed);
+                if (libraryItemModel.getItemType().equals("Book")) {
+                    maxDays = 7;
+                } else {
+                    maxDays = 3;
+                }
+                long dayDiff = map.get("elapsedDays") - maxDays;
+                long hourDiff = map.get("elapsedHours");
+                if (dayDiff <= 3) {
+                    overdueFee = (dayDiff * 24 + hourDiff) * 0.2;
+                } else {
+                    long remainingTime = dayDiff - 3;
+                    overdueFee = (3 * 24 * 0.2) + ((remainingTime * 24)+ hourDiff) * 0.5;
+                }
+
+                if (overdueFee < 0){
+                    return null;
+                }
+                if (overdueFee != 0) {
+                    item.setCalculatedFee(overdueFee);
+                }
+                if(overdueFee == 0) {
+                    return null;
+                }
+            }
+
         return item;
     }
 
@@ -216,7 +250,38 @@ public class WestminsterLibraryManager implements LibraryManager {
             item.setIsbn(isbn);
             item.setReaderId(itemModel.getReaderId());
             item.setDateTimeBorrowed(itemModel.getDateTimeBorrowed());
-            item.setCalculatedFee(0);
+
+            LibraryItemModel libraryItemModel = LibraryItemModel.find.byId(itemModel.getIsbn());
+            double overdueFee = 0;
+            long maxDays = 0;
+            if (libraryItemModel != null) {
+                String dateBorrowed = itemModel.getDateTimeBorrowed();
+                DateTime dateTime = new DateTime();
+                Map<String, Long> map = dateTime.getDateTimeDiff(dateBorrowed);
+                if (libraryItemModel.getItemType().equals("Book")) {
+                    maxDays = 7;
+                } else {
+                    maxDays = 3;
+                }
+                long dayDiff = map.get("elapsedDays") - maxDays;
+                long hourDiff = map.get("elapsedHours");
+                if (dayDiff <= 3) {
+                    overdueFee = (dayDiff * 24 + hourDiff) * 0.2;
+                } else {
+                    long remainingTime = dayDiff - 3;
+                    overdueFee = (3 * 24 * 0.2) + ((remainingTime * 24)+ hourDiff) * 0.5;
+                }
+
+                if (overdueFee < 0){
+                    return null;
+                }
+                if (overdueFee != 0) {
+                    item.setCalculatedFee(overdueFee);
+                }
+                if(overdueFee == 0) {
+                    return null;
+                }
+            }
         }
         return item;
     }
