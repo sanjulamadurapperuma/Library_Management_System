@@ -47,6 +47,15 @@ create table reader (
   constraint pk_reader primary key (id)
 );
 
+create table reserveitem (
+  reserveid                     integer auto_increment not null,
+  isbn                          integer not null,
+  readerid                      integer not null,
+  nooftimesborrowed             integer not null,
+  avgborrowtime                 integer not null,
+  constraint pk_reserveitem primary key (reserveid)
+);
+
 alter table author_libraryitems add constraint fk_author_libraryitems_author foreign key (author_id) references author (id) on delete restrict on update restrict;
 create index ix_author_libraryitems_author on author_libraryitems (author_id);
 
@@ -71,4 +80,6 @@ drop table if exists borrow;
 drop table if exists libraryitems;
 
 drop table if exists reader;
+
+drop table if exists reserveitem;
 

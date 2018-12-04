@@ -10,6 +10,8 @@ import {Borrow} from "../../borrow";
 export class BorrowItemComponent implements OnInit {
   successMsg: string = null;
   errMsg: string = null;
+  reserveMsg: string = null;
+  reserveOk: boolean;
   isSuccess: boolean;
   item: any;
   options: boolean;
@@ -40,5 +42,9 @@ export class BorrowItemComponent implements OnInit {
       },
       error => console.log('Error', error)
     );
+  }
+
+  reserveItem(formReserve){
+
   }
 }
