@@ -149,6 +149,10 @@ public class DateTime {
         return sdf1.format(resultdate);
     }
 
+    public Double getHoursInDays(double hours) {
+        return hours / 24;
+    }
+
     public Map<String, Long> getDateTimeDiff(String dateTime) {
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String current = sdf2.format(System.currentTimeMillis());

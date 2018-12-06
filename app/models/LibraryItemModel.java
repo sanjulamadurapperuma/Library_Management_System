@@ -62,8 +62,19 @@ public class LibraryItemModel extends Model {
     @Column(name = "type")
     private String itemType;
 
+    //Borrowed or Available check
     @Column(name = "borrowedStatus")
     private String borrowedStatus;
+
+    //Number of times the item has
+    // been borrowed
+    @Column(name = "noOfTimesBorrowed")
+    private int noOfTimesBorrowed;
+
+    //The average number of hours the
+    // item has been borrowed for
+    @Column(name = "avgTimeBorrowed")
+    private double avgTimeBorrowed;
 
     public static Finder<Integer, LibraryItemModel> find = new Finder<>(LibraryItemModel.class);
 
@@ -169,5 +180,21 @@ public class LibraryItemModel extends Model {
 
     public void setBorrowedStatus(String borrowedStatus) {
         this.borrowedStatus = borrowedStatus;
+    }
+
+    public int getNoOfTimesBorrowed() {
+        return noOfTimesBorrowed;
+    }
+
+    public void setNoOfTimesBorrowed(int noOfTimesBorrowed) {
+        this.noOfTimesBorrowed = noOfTimesBorrowed;
+    }
+
+    public double getAvgTimeBorrowed() {
+        return avgTimeBorrowed;
+    }
+
+    public void setAvgTimeBorrowed(double avgTimeBorrowed) {
+        this.avgTimeBorrowed = avgTimeBorrowed;
     }
 }

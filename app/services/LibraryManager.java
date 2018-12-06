@@ -3,6 +3,7 @@ package services;
 import dto.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LibraryManager {
     void addBook(Book book);

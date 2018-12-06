@@ -7,6 +7,7 @@ import play.mvc.*;
 import services.WestminsterLibraryManager;
 
 import java.util.List;
+import java.util.Map;
 
 class AppSummary {
     private String content;
@@ -38,6 +39,9 @@ public class HomeController extends Controller {
 
     public Result addBook() {
         JsonNode json = request().body().asJson();
+        //JsonNode is a generic container of elements
+        // inside the JSON stream and the body of the
+        // request is converted to a Json
         Book book = new Book();
         book.setItemISBN(json.get("itemISBN").asInt());
         book.setItemTitle(json.get("itemTitle").asText());
@@ -77,6 +81,7 @@ public class HomeController extends Controller {
     }
 
     public Result displayItems() {
+        //Part of display item component
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
         List<ItemToDisplay> items = libraryManager.getAllLibraryItems();
         JsonNode jsonNode = Json.toJson(items);
@@ -84,6 +89,7 @@ public class HomeController extends Controller {
     }
 
     public Result searchItem(String isbn) {
+        //Part of Display Item Component
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
         ItemToDisplay item = libraryManager.searchLibraryItem(Integer.parseInt(isbn));
         if (item == null) {
@@ -93,18 +99,21 @@ public class HomeController extends Controller {
     }
 
     public Result getFreeSpaceBook() {
+        //Used in add and delete item components
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
         int freeSpace = libraryManager.getFreeSpaceBook();
         return ok(Json.toJson(freeSpace)).as("application/json");
     }
 
     public Result getFreeSpaceDVD() {
+        //Used in add and delete item components
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
         int freeSpace = libraryManager.getFreeSpaceDVD();
         return ok(Json.toJson(freeSpace)).as("application/json");
     }
 
     public Result borrowLibraryItem(){
+        //Part of Borrow item component
         JsonNode json = request().body().asJson();
         Borrow borrow = new Borrow();
         borrow.setIsbn(json.get("itemISBN").asInt());
@@ -142,7 +151,7 @@ public class HomeController extends Controller {
         reserve.setIsbn(json.get("itemISBN").asInt());
         reserve.setReaderId(json.get("readerId").asInt());
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
-        String status = libraryManager.reserveLibraryItem(reserve);
-        return ok(Json.toJson(status)).as("application/json");
+        String averageTimeToWait = libraryManager.reserveLibraryItem(reserve);
+        return ok(Json.toJson(averageTimeToWait)).as("application/json");
     }
 }

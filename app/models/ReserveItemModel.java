@@ -1,10 +1,13 @@
 package models;
 
+import io.ebean.Finder;
+import io.ebean.Model;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "reserveItem")
-public class ReserveItemModel {
+@Table(name = "reserveitem")
+public class ReserveItemModel extends Model {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -16,6 +19,8 @@ public class ReserveItemModel {
 
     @Column(name = "readerId")
     private int readerId;
+
+    public static Finder<Integer, ReserveItemModel> find = new Finder<>(ReserveItemModel.class);
 
     public int getReserveId() {
         return reserveId;

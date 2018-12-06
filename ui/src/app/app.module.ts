@@ -17,6 +17,7 @@ import {GenerateReportComponent} from "./ui/generate-report/generate-report.comp
 import {HomeComponent} from "./ui/home/home.component";
 import {ReturnItemComponent} from "./ui/return-item/return-item.component";
 import {UiModule} from "./ui/ui.module";
+import {ReserveItemComponent} from "./ui/reserve-item/reserve-item.component";
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'generate-report',
     component: GenerateReportComponent,
+  },
+  {
+    path: 'reserve-item',
+    component: ReserveItemComponent,
   },
   {
     path: '**',

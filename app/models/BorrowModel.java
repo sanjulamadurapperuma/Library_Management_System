@@ -4,11 +4,10 @@ import io.ebean.Finder;
 import io.ebean.Model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "borrow")
-public class BorrowModel extends Model implements Serializable{
+public class BorrowModel extends Model{
 
     @Id
     @Column(name = "isbnNumber")

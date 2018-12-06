@@ -15,12 +15,12 @@
     <ng-template #reserveTemplate>
       <form #formReserve="ngForm" (ngSubmit)="borrowItem(formReserve)"
             name="reserve-item-form" form.valid novalidate>
-        <div class="alert alert-success" *ngIf="isSuccess">
-          {{reserveMsg}}
+        <div class="alert alert-success" *ngIf="!isSuccess">
+          {{reserveMsg}}<span>
+          <button type="submit" name="reserve"
+                  class="btn btn-primary"
+                  id="reservebtn" (click)="btnClick()">Yes</button></span>
         </div>
-        <button type="submit" name="reserve"
-                class="btn btn-primary"
-                id="reservebtn" [disabled]="frm.invalid">Ok</button>
       </form>
     </ng-template>
 

@@ -5,7 +5,9 @@ import io.ebean.Ebean;
 import models.BorrowModel;
 import models.LibraryItemModel;
 import models.ReaderModel;
+import models.ReserveItemModel;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -135,15 +137,15 @@ public class WestminsterLibraryManager implements LibraryManager {
                     long remainingTime = dayDiff - 3;
                     overdueFee = (3 * 24 * 0.2) + ((remainingTime * 24)+ hourDiff) * 0.5;
                 }
+                BorrowModel.find.ref(isbn).delete();
+                itemModel.setBorrowedStatus("Available");
+                double timeBorrowedInHours = map.get("elapsedDays") * 24 + map.get("elapsedHours");
+                double avgTimeBorrowed = (itemModel.getAvgTimeBorrowed() + timeBorrowedInHours) / (itemModel.getNoOfTimesBorrowed() + 1);
+                itemModel.setAvgTimeBorrowed(avgTimeBorrowed);
+                itemModel.setNoOfTimesBorrowed(itemModel.getNoOfTimesBorrowed() + 1);
+                Ebean.update(itemModel);
                 if (overdueFee != 0) {
-                    BorrowModel.find.ref(isbn).delete();
-                    itemModel.setBorrowedStatus("Available");
-                    Ebean.update(itemModel);
                     return "Please pay your overdue fee of £" + String.format("%.2f", overdueFee);
-                } else {
-                    BorrowModel.find.ref(isbn).delete();
-                    itemModel.setBorrowedStatus("Available");
-                    Ebean.update(itemModel);
                 }
             }
         } else {
@@ -336,6 +338,36 @@ public class WestminsterLibraryManager implements LibraryManager {
     }
 
     public String reserveLibraryItem(ReserveItem reserve) {
-        return null;
+        LibraryItemModel itemModel = LibraryItemModel.find.byId(reserve.getIsbn());
+        double avgTimeBorrowed = itemModel.getAvgTimeBorrowed();
+        BorrowModel borrowModel = BorrowModel.find.byId(reserve.getIsbn());
+        String dateBorrowed = borrowModel.getDateTimeBorrowed();
+        DateTime dateTime = new DateTime();
+        Map<String, Long> map = dateTime.getDateTimeDiff(dateBorrowed);
+        double currentlyBorrowedForHowLong = map.get("elapsedDays") * 24 + map.get("elapsedHours");
+        if (avgTimeBorrowed == 0) {
+            if (itemModel.getItemType().equals("Book")) {
+                avgTimeBorrowed = 7 * 24;
+            } else {
+                avgTimeBorrowed = 3 * 24;
+            }
+        }
+        double timeToWait = avgTimeBorrowed - currentlyBorrowedForHowLong; // for the first reserver
+        int count = Ebean.find(ReserveItemModel.class).where().eq("isbn", reserve.getIsbn()).findCount();
+        ReserveItemModel reserveItemModel = new ReserveItemModel();
+        reserveItemModel.setIsbn(reserve.getIsbn());
+        reserveItemModel.setReaderId(reserve.getReaderId());
+        Ebean.save(reserveItemModel);
+        DateTime newDate = new DateTime();
+        DecimalFormat df = new DecimalFormat("#.00");
+        if (timeToWait >= 0) {
+            if (count == 0) {
+                return df.format(newDate.getHoursInDays(timeToWait));
+            } else {
+                return df.format(newDate.getHoursInDays(timeToWait + (avgTimeBorrowed * count)));
+            }
+        } else { //already overdue
+            return df.format(newDate.getHoursInDays(avgTimeBorrowed * count));
+        }
     }
 }

@@ -36,6 +36,8 @@ create table libraryitems (
   actors                        varchar(255),
   type                          varchar(255),
   borrowedstatus                varchar(255),
+  nooftimesborrowed             integer not null,
+  avgtimeborrowed               double not null,
   constraint pk_libraryitems primary key (isbn)
 );
 

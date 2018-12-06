@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {BorrowItemService} from "./borrow-item.service";
 import {Borrow} from "../../borrow";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-borrow-item',
@@ -17,7 +18,7 @@ export class BorrowItemComponent implements OnInit {
   options: boolean;
   borrowedItem: Borrow;
 
-  constructor(private _borrowItemService: BorrowItemService) { }
+  constructor(private _borrowItemService: BorrowItemService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -29,18 +30,28 @@ export class BorrowItemComponent implements OnInit {
         if ("available" == data.toString()) {
           this.successMsg = "Successfully borrowed the item";
           this.isSuccess = true;
+          this.reserveOk = false;
           frm.resetForm();
         } else if ("alreadyBorrowed" == data.toString() || "overdue" == data.toString()) {
             this.errMsg = "The item is already borrowed by another person";
             this.isSuccess = false;
+            this.reserveOk = true;
+            this.reserveMsg = "Do you want to reserve this item?";
             frm.resetForm();
         } else {
           this.errMsg = "This item is currently borrowed. " + data.toString();
           this.isSuccess = false;
+          this.reserveOk = true;
+          this.reserveMsg = "Do you want to reserve this item?";
           frm.resetForm();
         }
       },
       error => console.log('Error', error)
     );
   }
+
+  btnClick(){
+    this.router.navigateByUrl('reserve-item');
+  }
+
 }

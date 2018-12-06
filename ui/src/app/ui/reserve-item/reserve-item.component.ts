@@ -9,9 +9,8 @@ import {Reserve} from "../../reserve";
 })
 export class ReserveItemComponent implements OnInit {
   reservedItem: any;
-  successMsg: string;
   isSuccess: boolean;
-  reserveMsg: string = null;
+  reserveMsg: string;
 
   constructor(private _reserveItemService: ReserveItemService) { }
 
@@ -22,7 +21,9 @@ export class ReserveItemComponent implements OnInit {
     this.reservedItem = new Reserve(frm.value["ISBN"], frm.value["ReaderId"]);
     this._reserveItemService.reserveItem(this.reservedItem).subscribe(
       data => {
-        this.successMsg = "Successfully reserved the item";
+        console.log(data);
+        this.reserveMsg = "Successfully reserved. You can borrow the item approximately in " + data
+          + " days.";
         this.isSuccess = true;
         frm.resetForm();
       },
