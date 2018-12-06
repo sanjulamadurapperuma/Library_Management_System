@@ -24,6 +24,7 @@
       </thead>
       <tbody>
       <tr>
+        <!--References objects created in the component typescript file-->
         <td>{{searchLibItem.itemISBN}}</td>
         <td>{{searchLibItem.itemTitle}}</td>
         <td>{{searchLibItem.itemType}}</td>
@@ -50,6 +51,7 @@
     </tr>
     </thead>
     <tbody>
+    <!--Loop tthrough each item in the list and display each in a single row-->
     <tr *ngFor="let item of items">
       <td>{{item.itemISBN}}</td>
       <td>{{item.itemTitle}}</td>

@@ -33,9 +33,11 @@ export class DisplayItemComponent implements OnInit {
     this._displayItemService.searchItem(formSearch.value["ISBN"]).subscribe(
       data => {
         if ("notAvailable" == data.toString()) {
+          //If returned string is 'notAvailable'
           this.errorMsg = "This item does not exist in the library";
           this.itemAvailable = false;
         } else {
+          //If relevant record found, then set value to searchLibItem
             this.searchLibItem = data;
             this.itemAvailable = true;
         }

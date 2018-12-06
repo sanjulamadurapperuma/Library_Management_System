@@ -16,6 +16,8 @@ export class DeleteItemComponent implements OnInit {
   constructor(private _deleteItemService: DeleteItemService) {
     this.getFreeSpaceBook();
     this.getFreeSpaceDVD();
+    //Method calls in constructor means invoking functions at
+    // the moment of object instantiation
   }
 
   ngOnInit() {
@@ -29,6 +31,7 @@ export class DeleteItemComponent implements OnInit {
           this.isSuccess = false;
           form.resetForm();
         } else {
+          //Execute this block if the item was found and deleted successfully
           this.getFreeSpaceBook();
           this.getFreeSpaceDVD();
           this.successMsg = "Successfully deleted a " + data + " item";
@@ -43,8 +46,12 @@ export class DeleteItemComponent implements OnInit {
   getFreeSpaceBook() {
     this._deleteItemService.getFreeSpaceBook().subscribe(
       data => {
+        //data.toString() method returns the data passed through the
+        // http connection after parsing it into a string
         this.bookFreeSpace = data.toString();
       },
+      //Else pass the error that has occured to the
+      // developer's console
       error => console.log('Error', error)
     );
   }

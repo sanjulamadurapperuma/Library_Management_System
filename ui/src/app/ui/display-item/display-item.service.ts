@@ -12,6 +12,7 @@ export class DisplayItemService {
   constructor(private _http: HttpClient) { }
 
   returnDetails() {
+    //Passing get request to back-end
     return this._http.get(this._urlDisplay);
   }
 

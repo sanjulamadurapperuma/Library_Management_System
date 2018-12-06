@@ -16,6 +16,8 @@ export class AddItemService {
   constructor(private _http: HttpClient) { }
 
   addBook(book: Book) {
+    //returns a post request made to the url
+    // with the book object
     return this._http.post<any>(this._urlBook, book);
   }
 

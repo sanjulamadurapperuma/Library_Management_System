@@ -25,6 +25,7 @@ export class BorrowItemComponent implements OnInit {
 
   borrowItem(frm) {
     this.borrowedItem = new Borrow(frm.value["ISBN"], frm.value["ReaderId"]);
+    //Return values of the ISBN and the Reader ID that has been entered into the form
     this._borrowItemService.borrowItem(this.borrowedItem).subscribe(
       data => {
         if ("available" == data.toString()) {
@@ -48,6 +49,8 @@ export class BorrowItemComponent implements OnInit {
       },
       error => console.log('Error', error)
     );
+    //Subscribe to the borrow item service and retrieve data gained from the
+    // functions in WestminsterLibraryManager
   }
 
   btnClick(){

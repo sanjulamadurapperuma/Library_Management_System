@@ -1,14 +1,16 @@
 <div class="jumbotron">
 
   <h2>Delete an Item</h2>
-
+<!--This is the start of the delete item form-->
  <form #frm="ngForm" (ngSubmit)="deleteItem(frm)"
       name="delete-item-form" form.valid novalidate>
 
+   <!--This div is only showed when deletion is complete-->
     <div class="alert alert-success" *ngIf="isSuccess">
     {{successMsg}}
     </div>
 
+   <!--This div is only showed when -->
     <div class="alert alert-warning"
        *ngIf="!isSuccess && isSuccess != null">
     {{successMsg}}

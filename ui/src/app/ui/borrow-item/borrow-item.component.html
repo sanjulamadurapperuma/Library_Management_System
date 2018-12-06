@@ -1,9 +1,13 @@
 <div class="jumbotron">
   <h2>Borrow an Item</h2>
+  <!--Start of form for borrowing an item-->
   <form #frm="ngForm" (ngSubmit)="borrowItem(frm)" name="borrow-item-form" form.valid novalidate>
+    <!--If the item was borrowed successfully, this div will be shown to the user-->
     <div class="alert alert-success" *ngIf="isSuccess">
       {{successMsg}}
     </div>
+    <!--If the item is already borrowed or there is no such Library Item,
+    this div will be displayed to the user-->
     <div class="alert alert-warning" *ngIf="!isSuccess && isSuccess != null">
       {{errMsg}}
     </div>
@@ -12,6 +16,7 @@
     <div *ngIf="reserveOk;then reserveTemplate;">
     </div>
 
+    <!--This div will be displayed when the Library Item has already been borrowed-->
     <ng-template #reserveTemplate>
       <form #formReserve="ngForm" (ngSubmit)="borrowItem(formReserve)"
             name="reserve-item-form" form.valid novalidate>
