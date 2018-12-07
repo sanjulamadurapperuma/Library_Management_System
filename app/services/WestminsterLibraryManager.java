@@ -73,7 +73,7 @@ public class WestminsterLibraryManager implements LibraryManager {
 
 
     @Override
-    public String borrowLibraryItem(Borrow borrow){
+    public String borrowLibraryItem(BorrowItem borrow){
         LibraryItemModel itemModel = LibraryItemModel.find.byId(borrow.getIsbn());
         BorrowModel borrowModel = BorrowModel.find.byId(borrow.getIsbn());
         if (itemModel != null) {
@@ -155,11 +155,11 @@ public class WestminsterLibraryManager implements LibraryManager {
     }
 
     @Override
-    public List<Borrow> getAllBorrowedItems() {
+    public List<BorrowItem> getAllBorrowedItems() {
         List<BorrowModel> items = Ebean.find(BorrowModel.class).findList();
-        List<Borrow> itemList = new ArrayList<>();
+        List<BorrowItem> itemList = new ArrayList<>();
         for (BorrowModel item : items) {
-            Borrow itemDisplay = getBorrowItemToDisplayDTOByModel(item);
+            BorrowItem itemDisplay = getBorrowItemToDisplayDTOByModel(item);
             if (itemDisplay != null){
                 itemList.add(itemDisplay);
             }
@@ -167,8 +167,8 @@ public class WestminsterLibraryManager implements LibraryManager {
         return itemList;
     }
 
-    private Borrow getBorrowItemToDisplayDTOByModel(BorrowModel itemModel) {
-        Borrow item = new Borrow();
+    private BorrowItem getBorrowItemToDisplayDTOByModel(BorrowModel itemModel) {
+        BorrowItem item = new BorrowItem();
         item.setIsbn(itemModel.getIsbn());
         item.setReaderId(itemModel.getReaderId());
         item.setDateTimeBorrowed(itemModel.getDateTimeBorrowed());
@@ -244,11 +244,11 @@ public class WestminsterLibraryManager implements LibraryManager {
     }
 
     @Override
-    public Borrow searchBorrowItem(int isbn) {
-        Borrow item = null;
+    public BorrowItem searchBorrowItem(int isbn) {
+        BorrowItem item = null;
         BorrowModel itemModel = BorrowModel.find.byId(isbn);
         if (itemModel != null) {
-            item = new Borrow();
+            item = new BorrowItem();
             item.setIsbn(isbn);
             item.setReaderId(itemModel.getReaderId());
             item.setDateTimeBorrowed(itemModel.getDateTimeBorrowed());

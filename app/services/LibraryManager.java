@@ -3,7 +3,6 @@ package services;
 import dto.*;
 
 import java.util.List;
-import java.util.Map;
 
 public interface LibraryManager {
     //Add a new Book
@@ -17,7 +16,7 @@ public interface LibraryManager {
 
     //Get all Borrowed Items from
     // the BorrowModel table
-    List<Borrow> getAllBorrowedItems();
+    List<BorrowItem> getAllBorrowedItems();
 
     //Get all the Library Items present in the table
     List<ItemToDisplay> getAllLibraryItems();
@@ -26,7 +25,7 @@ public interface LibraryManager {
     ItemToDisplay searchLibraryItem(int isbn);
 
     //Search all items in the Borrow Model table
-    Borrow searchBorrowItem(int isbn);
+    BorrowItem searchBorrowItem(int isbn);
 
     //Get the number of free spaces left for
     // Books in the Library
@@ -37,7 +36,7 @@ public interface LibraryManager {
     int getFreeSpaceDVD();
 
     //Borrow Library Item
-    String borrowLibraryItem(Borrow borrow);
+    String borrowLibraryItem(BorrowItem borrow);
 
     //Return Library Item
     String returnLibraryItem(int isbn);

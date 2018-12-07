@@ -7,7 +7,6 @@ import play.mvc.*;
 import services.WestminsterLibraryManager;
 
 import java.util.List;
-import java.util.Map;
 
 class AppSummary {
     private String content;
@@ -115,7 +114,7 @@ public class HomeController extends Controller {
     public Result borrowLibraryItem(){
         //Part of Borrow item component
         JsonNode json = request().body().asJson();
-        Borrow borrow = new Borrow();
+        BorrowItem borrow = new BorrowItem();
         borrow.setIsbn(json.get("itemISBN").asInt());
         borrow.setReaderId(json.get("readerId").asInt());
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
@@ -131,14 +130,14 @@ public class HomeController extends Controller {
 
     public Result generateReport(){
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
-        List<Borrow> items = libraryManager.getAllBorrowedItems();
+        List<BorrowItem> items = libraryManager.getAllBorrowedItems();
         JsonNode jsonNode = Json.toJson(items);
         return ok(jsonNode).as("application/json");
     }
 
     public Result searchBorrowItem(String isbn) {
         WestminsterLibraryManager libraryManager = new WestminsterLibraryManager();
-        Borrow item = libraryManager.searchBorrowItem(Integer.parseInt(isbn));
+        BorrowItem item = libraryManager.searchBorrowItem(Integer.parseInt(isbn));
         if (item == null) {
             return ok(Json.toJson("notAvailable")).as("application/json");
         }

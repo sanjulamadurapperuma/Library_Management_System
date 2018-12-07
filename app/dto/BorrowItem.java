@@ -1,6 +1,6 @@
 package dto;
 
-public class Borrow {
+public class BorrowItem {
     private int isbn;
     private int readerId;
     private String dateTimeBorrowed;
