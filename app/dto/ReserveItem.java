@@ -1,13 +1,8 @@
 package dto;
 
 public class ReserveItem {
-    private int reserveId;
     private int isbn;
     private int readerId;
-
-    public int getReserveId() {
-        return reserveId;
-    }
 
     public int getIsbn() {
         return isbn;
