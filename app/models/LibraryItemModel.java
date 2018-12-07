@@ -76,6 +76,7 @@ public class LibraryItemModel extends Model {
     @Column(name = "avgTimeBorrowed")
     private double avgTimeBorrowed;
 
+    //This is the Ebean Finder - Pass the bean type to the finder and it returns the relevant data
     public static Finder<Integer, LibraryItemModel> find = new Finder<>(LibraryItemModel.class);
 
     public int getIsbn() {
