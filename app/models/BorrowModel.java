@@ -6,7 +6,7 @@ import io.ebean.Model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "borrow")
+@Table(name = "borrowitem")
 public class BorrowModel extends Model{
 
     @Id
@@ -19,7 +19,8 @@ public class BorrowModel extends Model{
     @Column(name = "dateTimeBorrowed")
     private String dateTimeBorrowed;
 
-    public static Finder<Integer, BorrowModel> find = new Finder<>(BorrowModel.class);
+    public static Finder<Integer, BorrowModel>
+            find = new Finder<>(BorrowModel.class);
 
     public int getIsbn() {
         return isbn;

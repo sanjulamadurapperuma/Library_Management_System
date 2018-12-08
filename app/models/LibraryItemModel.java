@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.sql.Date;
 
 @Entity
-@Table(name = "libraryitems")
+@Table(name = "libraryitem")
 public class LibraryItemModel extends Model {
 
     /*Start of LibraryItem attributes*/

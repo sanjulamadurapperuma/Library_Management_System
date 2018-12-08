@@ -9,20 +9,20 @@ create table author (
   constraint pk_author primary key (id)
 );
 
-create table author_libraryitems (
+create table author_libraryitem (
   author_id                     integer not null,
-  libraryitems_isbn             integer not null,
-  constraint pk_author_libraryitems primary key (author_id,libraryitems_isbn)
+  libraryitem_isbn              integer not null,
+  constraint pk_author_libraryitem primary key (author_id,libraryitem_isbn)
 );
 
-create table borrow (
+create table borrowitem (
   isbnnumber                    integer auto_increment not null,
   readerid                      integer not null,
   datetimeborrowed              varchar(255),
-  constraint pk_borrow primary key (isbnnumber)
+  constraint pk_borrowitem primary key (isbnnumber)
 );
 
-create table libraryitems (
+create table libraryitem (
   isbn                          integer auto_increment not null,
   title                         varchar(255),
   sector                        varchar(255),
@@ -38,7 +38,7 @@ create table libraryitems (
   borrowedstatus                varchar(255),
   nooftimesborrowed             integer not null,
   avgtimeborrowed               double not null,
-  constraint pk_libraryitems primary key (isbn)
+  constraint pk_libraryitem primary key (isbn)
 );
 
 create table reader (
@@ -56,28 +56,28 @@ create table reserveitem (
   constraint pk_reserveitem primary key (reserveid)
 );
 
-alter table author_libraryitems add constraint fk_author_libraryitems_author foreign key (author_id) references author (id) on delete restrict on update restrict;
-create index ix_author_libraryitems_author on author_libraryitems (author_id);
+alter table author_libraryitem add constraint fk_author_libraryitem_author foreign key (author_id) references author (id) on delete restrict on update restrict;
+create index ix_author_libraryitem_author on author_libraryitem (author_id);
 
-alter table author_libraryitems add constraint fk_author_libraryitems_libraryitems foreign key (libraryitems_isbn) references libraryitems (isbn) on delete restrict on update restrict;
-create index ix_author_libraryitems_libraryitems on author_libraryitems (libraryitems_isbn);
+alter table author_libraryitem add constraint fk_author_libraryitem_libraryitem foreign key (libraryitem_isbn) references libraryitem (isbn) on delete restrict on update restrict;
+create index ix_author_libraryitem_libraryitem on author_libraryitem (libraryitem_isbn);
 
 
 # --- !Downs
 
-alter table author_libraryitems drop foreign key fk_author_libraryitems_author;
-drop index ix_author_libraryitems_author on author_libraryitems;
+alter table author_libraryitem drop foreign key fk_author_libraryitem_author;
+drop index ix_author_libraryitem_author on author_libraryitem;
 
-alter table author_libraryitems drop foreign key fk_author_libraryitems_libraryitems;
-drop index ix_author_libraryitems_libraryitems on author_libraryitems;
+alter table author_libraryitem drop foreign key fk_author_libraryitem_libraryitem;
+drop index ix_author_libraryitem_libraryitem on author_libraryitem;
 
 drop table if exists author;
 
-drop table if exists author_libraryitems;
+drop table if exists author_libraryitem;
 
-drop table if exists borrow;
+drop table if exists borrowitem;
 
-drop table if exists libraryitems;
+drop table if exists libraryitem;
 
 drop table if exists reader;
 
