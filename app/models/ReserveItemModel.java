@@ -20,7 +20,8 @@ public class ReserveItemModel extends Model {
     @Column(name = "readerId")
     private int readerId;
 
-    public static Finder<Integer, ReserveItemModel> find = new Finder<>(ReserveItemModel.class);
+    public static Finder<Integer, ReserveItemModel>
+            find = new Finder<>(ReserveItemModel.class);
 
     public int getReserveId() {
         return reserveId;
