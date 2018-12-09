@@ -44,7 +44,7 @@ public class HomeController extends Controller {
         Book book = new Book();
         book.setItemISBN(json.get("itemISBN").asInt());
         book.setItemTitle(json.get("itemTitle").asText());
-        book.setItemSector(json.get("itemTitle").asText());
+        book.setItemSector(json.get("itemSector").asText());
         book.setPublicationDate(json.get("publicationDate").asText());
         book.setAuthor(json.get("author").asText());
         book.setPublisher(json.get("publisher").asText());
@@ -59,7 +59,7 @@ public class HomeController extends Controller {
         DVD dvd = new DVD();
         dvd.setItemISBN(json.get("itemISBN").asInt());
         dvd.setItemTitle(json.get("itemTitle").asText());
-        dvd.setItemSector(json.get("itemTitle").asText());
+        dvd.setItemSector(json.get("itemSector").asText());
         dvd.setPublicationDate(json.get("publicationDate").asText());
         dvd.setLanguages(json.get("languages").asText());
         dvd.setSubtitles(json.get("subtitles").asText());

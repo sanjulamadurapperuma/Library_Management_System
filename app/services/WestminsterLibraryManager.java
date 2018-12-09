@@ -7,6 +7,7 @@ import models.LibraryItemModel;
 import models.ReaderModel;
 import models.ReserveItemModel;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -152,7 +153,7 @@ public class WestminsterLibraryManager implements LibraryManager {
                 itemModel.setAvgTimeBorrowed(avgTimeBorrowed);
                 itemModel.setNoOfTimesBorrowed(itemModel.getNoOfTimesBorrowed() + 1);
                 Ebean.update(itemModel);
-                if (overdueFee != 0) {
+                if (overdueFee != 0 && overdueFee > 0) {
                     return "Please pay your overdue fee of £" + String.format("%.2f", overdueFee);
                 }
             }
@@ -206,7 +207,8 @@ public class WestminsterLibraryManager implements LibraryManager {
                     return null;
                 }
                 if (overdueFee != 0) {
-                    item.setCalculatedFee(overdueFee);
+                    DecimalFormat df = new DecimalFormat("#.00");
+                    item.setCalculatedFee(Double.valueOf(df.format(overdueFee)));
                 }
                 if(overdueFee == 0) {
                     return null;
@@ -286,7 +288,8 @@ public class WestminsterLibraryManager implements LibraryManager {
                     return null;
                 }
                 if (overdueFee != 0) {
-                    item.setCalculatedFee(overdueFee);
+                    DecimalFormat df = new DecimalFormat("#.00");
+                    item.setCalculatedFee(Double.valueOf(df.format(overdueFee)));
                 }
                 if(overdueFee == 0) {
                     return null;
