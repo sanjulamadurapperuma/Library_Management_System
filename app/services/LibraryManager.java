@@ -44,6 +44,6 @@ public interface LibraryManager {
     //Reserve Library Item
     String reserveLibraryItem(ReserveItem reserveItem);
 
-    //Gte list of all Books in Library Item table
+    //Get list of all Books in Library Item table
     List<Book> getAllBooks();
 }

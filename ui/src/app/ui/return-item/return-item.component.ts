@@ -1,6 +1,4 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
-import {Book} from "../../book";
-import {DVD} from "../../dvd";
 import {ReturnItemService} from "./return-item.service";
 
 
@@ -14,9 +12,6 @@ export class ReturnItemComponent implements OnInit {
   errMsg: string = null;
   feeMsg: string = null;
   isSuccess: boolean;
-  item: any;
-  book: Book;
-  dvd: DVD;
 
   constructor(private _returnItemService: ReturnItemService) { }
 

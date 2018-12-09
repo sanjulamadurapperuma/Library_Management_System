@@ -1,8 +1,10 @@
 <div class="jumbotron">
   <h2>Borrow an Item</h2>
   <!--Start of form for borrowing an item-->
-  <form #frm="ngForm" (ngSubmit)="borrowItem(frm)" name="borrow-item-form" form.valid novalidate>
-    <!--If the item was borrowed successfully, this div will be shown to the user-->
+  <form #frm="ngForm" (ngSubmit)="borrowItem(frm)"
+        name="borrow-item-form" form.valid novalidate>
+    <!--If the item was borrowed successfully, this div
+    will be shown to the user-->
     <div class="alert alert-success" *ngIf="isSuccess">
       {{successMsg}}
     </div>
@@ -57,7 +59,8 @@
     </div>
     <br>
     <button type="reset" name="clear" class="btn btn-primary" id="clearbtn">Clear Form</button>
-    <button type="submit" name="submit" class="btn btn-primary" [disabled]="frm.invalid" id="submitbtn1">Submit</button>
+    <button type="submit" name="submit" class="btn btn-primary"
+            [disabled]="frm.invalid" id="submitbtn1">Submit</button>
 
   </form>
 </div>

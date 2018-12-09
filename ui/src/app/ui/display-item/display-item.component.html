@@ -1,18 +1,47 @@
 <div class="jumbotron">
 
-<h2>Display items</h2><br/>
-<div>
-  <form #formSearch="ngForm" (ngSubmit)="searchItem(formSearch)"
-        name="display-item-form-search" form.valid novalidate>
+  <h2>Display items</h2><br/>
+  <div>
+    <form #formSearch="ngForm" (ngSubmit)="searchItem(formSearch)"
+          name="display-item-form-search" form.valid novalidate>
 
-  <label for="search">Search Library Item: </label><input
-    id="search" type="text" ng-model="bookSrch" name="ISBN" ngModel/>
+    <label for="search">Search Library Item: </label><input
+      id="search" type="text" ng-model="bookSrch" name="ISBN" ngModel/>
 
-  <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-primary">Search</button>
 
-  </form>
-  <br>
-  <div *ngIf="searchLibItem != null">
+    </form>
+    <br>
+    <div *ngIf="searchLibItem != null">
+      <table border="1" width="75%">
+        <thead>
+        <tr>
+          <th>ISBN</th>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <!--References objects created in the component
+          typescript file-->
+          <td>{{searchLibItem.itemISBN}}</td>
+          <td>{{searchLibItem.itemTitle}}</td>
+          <td>{{searchLibItem.itemType}}</td>
+          <td>{{searchLibItem.status}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <br/>
+      <hr/>
+    </div>
+    <div class="alert alert-warning"
+         *ngIf="!itemAvailable && itemAvailable != null">
+      {{errorMsg}}
+    </div>
+  </div>
+    <h3>All Items</h3>
     <table border="1" width="75%">
       <thead>
       <tr>
@@ -23,41 +52,14 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <!--References objects created in the component typescript file-->
-        <td>{{searchLibItem.itemISBN}}</td>
-        <td>{{searchLibItem.itemTitle}}</td>
-        <td>{{searchLibItem.itemType}}</td>
-        <td>{{searchLibItem.status}}</td>
+      <!--Loop tthrough each item in the list and
+      display each in a single row-->
+      <tr *ngFor="let item of items">
+        <td>{{item.itemISBN}}</td>
+        <td>{{item.itemTitle}}</td>
+        <td>{{item.itemType}}</td>
+        <td>{{item.status}}</td>
       </tr>
       </tbody>
     </table>
-    <br/>
-    <hr/>
-  </div>
-  <div class="alert alert-warning"
-       *ngIf="!itemAvailable && itemAvailable != null">
-    {{errorMsg}}
-  </div>
-</div>
-  <h3>All Items</h3>
-  <table border="1" width="75%">
-    <thead>
-    <tr>
-      <th>ISBN</th>
-      <th>Title</th>
-      <th>Type</th>
-      <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!--Loop tthrough each item in the list and display each in a single row-->
-    <tr *ngFor="let item of items">
-      <td>{{item.itemISBN}}</td>
-      <td>{{item.itemTitle}}</td>
-      <td>{{item.itemType}}</td>
-      <td>{{item.status}}</td>
-    </tr>
-    </tbody>
-  </table>
 </div>

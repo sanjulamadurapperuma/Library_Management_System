@@ -31,6 +31,7 @@ public class WestminsterLibraryManager implements LibraryManager {
             bookModel.setNumberOfPages(book.getNumberOfPages());
             bookModel.setItemType("Book");
             bookModel.setBorrowedStatus("Available");
+            //Now save the loaded bookModel object into Ebean
             Ebean.save(bookModel);
         } catch (ParseException e) {
             System.out.println("Error occurred while parsing Date");
@@ -44,6 +45,7 @@ public class WestminsterLibraryManager implements LibraryManager {
             dvdModel.setIsbn(dvd.getItemISBN());
             dvdModel.setTitle(dvd.getItemTitle());
             dvdModel.setSector(dvd.getItemSector());
+            //Conversion of date into MySQL Date format before setting it
             SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
             java.util.Date date = sdf1.parse(dvd.getPublicationDate());
             java.sql.Date publicationDate = new java.sql.Date(date.getTime());
@@ -78,6 +80,7 @@ public class WestminsterLibraryManager implements LibraryManager {
         BorrowModel borrowModel = BorrowModel.find.byId(borrow.getIsbn());
         if (itemModel != null) {
             if (borrowModel != null) {
+                //If the item is already borrowed
                 String dateBorrowed = borrowModel.getDateTimeBorrowed();
                 DateTime dateTime = new DateTime();
                 Map<String, Long> map = dateTime.getDateTimeDiff(dateBorrowed);
@@ -100,13 +103,16 @@ public class WestminsterLibraryManager implements LibraryManager {
                 }
                 return "alreadyBorrowed";
             } else {
+                //If the item is not currently borrowed
                 BorrowModel borrowModel1 = new BorrowModel();
                 borrowModel1.setIsbn(borrow.getIsbn());
                 borrowModel1.setReaderId(borrow.getReaderId());
                 DateTime date = new DateTime();
                 borrowModel1.setDateTimeBorrowed(date.getTime());
                 itemModel.setBorrowedStatus("Borrowed");
+                //Update the status in LibraryItem table as borrowed
                 Ebean.update(itemModel);
+                //Now save the record in the borrowitem table
                 Ebean.save(borrowModel1);
             }
         }
@@ -139,8 +145,10 @@ public class WestminsterLibraryManager implements LibraryManager {
                 }
                 BorrowModel.find.ref(isbn).delete();
                 itemModel.setBorrowedStatus("Available");
-                double timeBorrowedInHours = map.get("elapsedDays") * 24 + map.get("elapsedHours");
-                double avgTimeBorrowed = (itemModel.getAvgTimeBorrowed() + timeBorrowedInHours) / (itemModel.getNoOfTimesBorrowed() + 1);
+                double timeBorrowedInHours = map.get("elapsedDays") * 24 +
+                        map.get("elapsedHours");
+                double avgTimeBorrowed = (itemModel.getAvgTimeBorrowed() +
+                        timeBorrowedInHours) / (itemModel.getNoOfTimesBorrowed() + 1);
                 itemModel.setAvgTimeBorrowed(avgTimeBorrowed);
                 itemModel.setNoOfTimesBorrowed(itemModel.getNoOfTimesBorrowed() + 1);
                 Ebean.update(itemModel);
@@ -319,11 +327,6 @@ public class WestminsterLibraryManager implements LibraryManager {
         book.setItemTitle(bookModel.getTitle());
         book.setItemISBN(bookModel.getIsbn());
 
-        //Reader reader = getReaderDTObyModel(bookModel.getReader());
-        //book.setReader(reader);
-
-        //TODO: write a method to get author list.
-
         return book;
     }
 
@@ -337,23 +340,53 @@ public class WestminsterLibraryManager implements LibraryManager {
         return reader;
     }
 
+    //To reserve a library item
     public String reserveLibraryItem(ReserveItem reserve) {
+        /* Explanation:
+        * First, find the library item with the given isbn and invoke
+        * getAvgTimeBorrowed() method which returns the average
+        * time the specific library item has been borrowed.
+        * Then find the equivalent record in the borrow item table.
+        * The date borrowed is retrieved and the difference between
+        * that and the current time is calculated using the getDateTimeDiff method.
+        * The amount of time the item has been borrowed by the current borrower
+        * is passed on to a variable and the average time the item is borrowed is calculated.
+        * The time that the reader reserving the item has to wait is then calculated by
+        * subtracting the avgTimeBorrowed with the time the current borrower has
+        * borrowed the item for. The number of reservations placed on the
+        * same library item is then calculated. This is used to find the
+        * amount of time the reader has to wait to borrow the book again, in number
+        * of days (taking into account the number of hours as well). In the meantime, the
+        * isbn and the reader id is saved in the reserve item table. If the item is
+        * already overdue, then the amount of time the item has currently been borrowed
+        * for is shown.*/
         LibraryItemModel itemModel = LibraryItemModel.find.byId(reserve.getIsbn());
-        double avgTimeBorrowed = itemModel.getAvgTimeBorrowed();
+        double avgTimeBorrowed = 0;
+        if (itemModel != null) {
+            avgTimeBorrowed = itemModel.getAvgTimeBorrowed();
+        }
         BorrowModel borrowModel = BorrowModel.find.byId(reserve.getIsbn());
-        String dateBorrowed = borrowModel.getDateTimeBorrowed();
+        String dateBorrowed = null;
+        if (borrowModel != null) {
+            dateBorrowed = borrowModel.getDateTimeBorrowed();
+        }
         DateTime dateTime = new DateTime();
         Map<String, Long> map = dateTime.getDateTimeDiff(dateBorrowed);
-        double currentlyBorrowedForHowLong = map.get("elapsedDays") * 24 + map.get("elapsedHours");
+        double currentlyBorrowedForHowLong = map.get("elapsedDays") * 24 +
+                map.get("elapsedHours");
         if (avgTimeBorrowed == 0) {
-            if (itemModel.getItemType().equals("Book")) {
-                avgTimeBorrowed = 7 * 24;
-            } else {
-                avgTimeBorrowed = 3 * 24;
+            if (itemModel != null) {
+                if (itemModel.getItemType().equals("Book")) {
+                    avgTimeBorrowed = 7 * 24;
+                } else {
+                    avgTimeBorrowed = 3 * 24;
+                }
             }
         }
-        double timeToWait = avgTimeBorrowed - currentlyBorrowedForHowLong; // for the first reserver
-        int count = Ebean.find(ReserveItemModel.class).where().eq("isbn", reserve.getIsbn()).findCount();
+        double timeToWait = avgTimeBorrowed - currentlyBorrowedForHowLong;
+        // for the first reserver
+        int count = Ebean.find(ReserveItemModel.class).where().eq("isbn",
+                reserve.getIsbn()).findCount();
         ReserveItemModel reserveItemModel = new ReserveItemModel();
         reserveItemModel.setIsbn(reserve.getIsbn());
         reserveItemModel.setReaderId(reserve.getReaderId());
@@ -364,7 +397,8 @@ public class WestminsterLibraryManager implements LibraryManager {
             if (count == 0) {
                 return df.format(newDate.getHoursInDays(timeToWait));
             } else {
-                return df.format(newDate.getHoursInDays(timeToWait + (avgTimeBorrowed * count)));
+                return df.format(newDate.getHoursInDays(timeToWait +
+                        (avgTimeBorrowed * count)));
             }
         } else { //already overdue
             return df.format(newDate.getHoursInDays(avgTimeBorrowed * count));

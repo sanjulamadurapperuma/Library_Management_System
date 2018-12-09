@@ -14,23 +14,19 @@ public class DateTime {
     private int hour;
     private int minute;
 
-    private int yearDiff;
-    private int monthDiff;
-    private int dayDiff;
-    private int hourDiff;
-    private int minuteDiff;
-
-
-
+    //Default Constructor
     public DateTime() {
     }
 
+    //Non-default constructor for date only
     public DateTime(int day, int month, int year){
         this.day = day;
         this.month = month;
         this.year = year;
     }
 
+    //Non-default constructor for parsing string
+    // containing both date and time
     public DateTime(String date){
         String dateObj = date;
         String[] dateArray = dateObj.split("-");
@@ -46,6 +42,7 @@ public class DateTime {
         }
     }
 
+    //Non-default constructor for time only
     public DateTime(int hour, int minute){
         if ( hour >= 1 && hour <= 23){
             this.hour = hour;
@@ -60,6 +57,7 @@ public class DateTime {
         }
     }
 
+    //Non-default constructor for date and time
     public DateTime(int day, int month, int year,
                     int hour, int minute){
         this.day = day;
@@ -103,12 +101,15 @@ public class DateTime {
         this.year = year;
     }
 
+    //Set the individual date elements to
+    // the instance variables
     public void setDate(int day, int month, int year ){
         this.day = day;
         this.month = month;
         this.year = year;
     }
 
+    //Formats the date into a string
     public String getDate(){
         String formattedDay;
         if (day < 10){
@@ -142,6 +143,7 @@ public class DateTime {
         this.minute = minute;
     }
 
+    //Gets the current system time
     public String getTime(){
         long currentDate = System.currentTimeMillis();
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -149,10 +151,13 @@ public class DateTime {
         return sdf1.format(resultdate);
     }
 
+    //Gets the number of hours in days - Used for reserving a Library Item
     public Double getHoursInDays(double hours) {
         return hours / 24;
     }
 
+    //Gets the date and time difference from the current
+    // system time and the time provided - returns a HashMap
     public Map<String, Long> getDateTimeDiff(String dateTime) {
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String current = sdf2.format(System.currentTimeMillis());
@@ -190,6 +195,7 @@ public class DateTime {
 
 
 
+    //ToString method for both date and time
     @Override
     public String toString() {
         String time = "";
